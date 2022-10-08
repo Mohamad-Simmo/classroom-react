@@ -1,27 +1,63 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Stack from 'react-bootstrap/Stack';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import { useState, useRef } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 import { login } from '../utils/userAPI';
 
 const Login = () => {
-  const [validated, setValidated] = useState(false);
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const { user, dispatch } = useContext(AuthContext);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+  const { email, password } = formData;
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
+
+  const resetFormData = () => {
+    setFormData({
+      email: '',
+      password: '',
+    });
+  };
+
+  const handleInputChange = (e) => {
+    const name = e.target.name;
+    setFormData((prevData) => ({ ...prevData, [name]: e.target.value }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    if (form.checkValidity() === true) {
-    }
-    setValidated(true);
-  };
 
-  const handleBlur = (e) => {
-    setValidated(true);
+    login({
+      email,
+      password,
+    })
+      .then((response) => {
+        dispatch({
+          type: 'LOGIN',
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        resetFormData();
+        setError(error.response.data.message);
+        setTimeout(() => {
+          setError('');
+        }, 5000);
+      });
   };
 
   return (
@@ -32,12 +68,7 @@ const Login = () => {
           style={{ maxWidth: '576px' }}
         >
           <h2 className="text-center mb-3">Login</h2>
-          <Form
-            onSubmit={handleSubmit}
-            noValidate
-            validated={validated}
-            onBlur={handleBlur}
-          >
+          <Form onSubmit={handleSubmit}>
             <FloatingLabel
               controlId="floatingEmailInput"
               label="Email address"
@@ -45,8 +76,10 @@ const Login = () => {
             >
               <Form.Control
                 type="email"
-                ref={emailRef}
                 placeholder="Email address"
+                name="email"
+                value={email}
+                onChange={handleInputChange}
                 required
               />
             </FloatingLabel>
@@ -59,16 +92,19 @@ const Login = () => {
               <Form.Control
                 type="password"
                 placeholder="Password"
-                ref={passwordRef}
+                name="password"
+                value={password}
+                onChange={handleInputChange}
                 required
               />
             </FloatingLabel>
 
-            <div className="d-flex justify-content-center px-5">
+            <Stack className="align-items-center">
               <Button variant="primary" type="submit" className="w-50">
                 LOGIN
               </Button>
-            </div>
+              {error && <p className="text-danger mt-2 fw-bold">{error}</p>}
+            </Stack>
           </Form>
         </Col>
       </Row>
