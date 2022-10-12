@@ -1,1 +1,24 @@
+:root {
+  --bs-info: #0dcaf0;
+}
 
+.offcanvas-size-sm {
+  --bs-offcanvas-width: min(95vw, 250px) !important;
+}
+
+.avatar {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.avatar-menu {
+  --bs-dropdown-link-active-bg: var(--bs-info);
+  --bs-dropdown-link-hover-bg: var(--bs-info);
+}

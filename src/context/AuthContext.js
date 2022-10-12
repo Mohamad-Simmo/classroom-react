@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect } from 'react';
+import { createContext, useReducer } from 'react';
 
 const AuthContext = createContext();
 
@@ -7,6 +7,7 @@ const user = JSON.parse(localStorage.getItem('user'));
 
 const initialState = {
   user: user ? user : null,
+  role: null,
 };
 
 export const authReducer = (state, action) => {
@@ -18,6 +19,9 @@ export const authReducer = (state, action) => {
     case 'LOGOUT':
       localStorage.removeItem('user');
       return { user: null };
+
+    case 'ROLE':
+      return { ...state, role: action.payload };
 
     default:
       return state;

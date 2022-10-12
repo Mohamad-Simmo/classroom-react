@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
-const IndexPage = () => {
+const Index = () => {
   return (
     <>
       <Navbar />
@@ -9,4 +9,4 @@ const IndexPage = () => {
     </>
   );
 };
-export default IndexPage;
+export default Index;

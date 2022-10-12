@@ -15,7 +15,7 @@ const Register = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate('/classes');
     }
   }, [user, navigate]);
 
@@ -163,7 +163,7 @@ const Register = () => {
             </FloatingLabel>
 
             <div className="d-flex justify-content-center px-5">
-              <Button variant="primary" type="submit" className="w-50">
+              <Button variant="info" type="submit" className="w-50">
                 REGISTER
               </Button>
             </div>

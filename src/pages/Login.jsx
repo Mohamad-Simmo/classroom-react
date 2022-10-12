@@ -22,7 +22,7 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate('/classes');
     }
   }, [user, navigate]);
 
@@ -100,7 +100,7 @@ const Login = () => {
             </FloatingLabel>
 
             <Stack className="align-items-center">
-              <Button variant="primary" type="submit" className="w-50">
+              <Button variant="info" type="submit" className="w-50">
                 LOGIN
               </Button>
               {error && <p className="text-danger mt-2 fw-bold">{error}</p>}
