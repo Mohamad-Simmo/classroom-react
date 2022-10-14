@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { BiLogOut } from 'react-icons/bi';
 
-const Avatar = ({ fullName, margin }) => {
+const Avatar = ({ fullName, onLogout }) => {
   return (
     <>
-      <Dropdown className="ms-auto">
+      <Dropdown className="ms-auto me-3">
         <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
           AP
         </Dropdown.Toggle>
@@ -18,9 +19,10 @@ const Avatar = ({ fullName, margin }) => {
         >
           <Dropdown.Item
             eventKey="1"
-            className="text-white avatar-menu-link-hover"
+            className="text-white avatar-menu-item"
+            onClick={onLogout}
           >
-            Logout
+            <BiLogOut className="me-2" /> Logout
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>

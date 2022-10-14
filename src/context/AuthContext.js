@@ -14,14 +14,14 @@ export const authReducer = (state, action) => {
   switch (action.type) {
     case 'LOGIN':
       localStorage.setItem('user', JSON.stringify(action.payload));
-      return { user: action.payload };
+      return { ...state, user: action.payload };
 
     case 'LOGOUT':
       localStorage.removeItem('user');
-      return { user: null };
+      return { user: null, role: null };
 
     case 'ROLE':
-      return { ...state, role: action.payload };
+      return { ...state, role: action.payload.toString() };
 
     default:
       return state;

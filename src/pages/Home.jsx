@@ -1,7 +1,6 @@
 import AuthContext from '../context/AuthContext';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Container from 'react-bootstrap/Container';
 import Stack from 'react-bootstrap/Stack';
 import Button from 'react-bootstrap/Button';
 import ClassCard from '../components/ClassCard';
@@ -9,21 +8,19 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { getRole } from '../utils/userAPI';
 import { getClasses } from '../utils/classAPI';
-import NewClassModal from '../components/NewClassModal';
+import Spinner from 'react-bootstrap/Spinner';
 
 const Home = () => {
   const { user, role, dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
   const [classes, setClasses] = useState([]);
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!user) {
       navigate('/login');
     } else {
+      setIsLoading(true);
       getRole(user.token).then((response) => {
         dispatch({
           type: 'ROLE',
@@ -31,73 +28,76 @@ const Home = () => {
         });
       });
 
-      getClasses(user.token).then((response) => {
-        setClasses(response.data);
-      });
+      getClasses(user.token)
+        .then((response) => {
+          setClasses(response.data);
+        })
+        .then(() => setIsLoading(false));
     }
   }, [user, navigate, dispatch]);
 
   return (
     <>
-      <NewClassModal
-        show={show}
-        handleClose={handleClose}
-        handleShow={handleShow}
-      />
-      <Container className="py-3">
-        <Stack
-          direction="horizontal"
-          className="border-bottom border-3 border-dark"
-        >
-          <h2 className="">Classes</h2>
-          {role && (
-            <Stack direction="horizontal" gap={2} className="ms-auto mb-2">
-              <Button
-                variant={role === 'teacher' ? 'outline-dark' : 'info'}
-                className="rounded-5"
-                onClick={handleShow}
-              >
-                Join Class
+      <Stack direction="horizontal" className="border-bottom border-dark">
+        <h2 className="">Classes</h2>
+        {role && (
+          <Stack direction="horizontal" gap={2} className="ms-auto mb-2">
+            <Button
+              variant={role === 'teacher' ? 'outline-dark' : 'info'}
+              className="rounded-5"
+            >
+              Join Class
+            </Button>
+            {role === 'teacher' && (
+              <Button variant="info" className="rounded-5">
+                Create Class
               </Button>
-              {role === 'teacher' && (
-                <Button variant="info" className="rounded-5">
-                  Create Class
-                </Button>
-              )}
-            </Stack>
-          )}
-        </Stack>
-        {classes.length === 0 ? (
-          <div
-            className="d-flex align-items-center justify-content-center"
-            style={{
-              height: '300px',
-            }}
-          >
-            <h6 className="text-muted">Add a new class to get started</h6>
-          </div>
-        ) : (
-          <Row>
-            {classes.map((_class) => {
-              const { full_name, id, name, description, code, num_people } =
-                _class;
-              return (
-                <Col xs={12} md={6} lg={4} className="p-3">
-                  <ClassCard
-                    key={id}
-                    id={id}
-                    instructor={full_name}
-                    title={name}
-                    description={description}
-                    code={code}
-                    people={num_people}
-                  />
-                </Col>
-              );
-            })}
-          </Row>
+            )}
+          </Stack>
         )}
-      </Container>
+      </Stack>
+      {isLoading ? (
+        <div
+          className="d-flex justify-content-center align-items-center"
+          style={{
+            height: '400px',
+          }}
+        >
+          <Spinner animation="border" />
+        </div>
+      ) : (
+        <>
+          {classes.length === 0 ? (
+            <div
+              className="d-flex align-items-center justify-content-center"
+              style={{
+                height: '300px',
+              }}
+            >
+              <h6 className="text-muted">Add a new class to get started</h6>
+            </div>
+          ) : (
+            <Row>
+              {classes.map((_class) => {
+                const { full_name, id, name, description, code, num_people } =
+                  _class;
+                return (
+                  <Col xs={12} md={6} lg={4} className="p-3" key={id}>
+                    <ClassCard
+                      id={id}
+                      instructor={full_name}
+                      title={name}
+                      description={description}
+                      code={code}
+                      people={num_people}
+                    />
+                  </Col>
+                );
+              })}
+            </Row>
+          )}
+        </>
+      )}
     </>
   );
 };

@@ -1,5 +1,7 @@
 :root {
   --bs-info: #0dcaf0;
+
+  --bs-gray-200: #e9ecef;
 }
 
 .offcanvas-size-sm {
@@ -20,5 +22,30 @@
 
 .avatar-menu {
   --bs-dropdown-link-active-bg: var(--bs-info);
-  --bs-dropdown-link-hover-bg: var(--bs-info);
+}
+
+.avatar-menu-item {
+  --bs-dropdown-link-hover-bg: transparent;
+  --bs-dropdown-link-active-bg: transparent;
+}
+.card-hover {
+  transition: 0.25s;
+}
+
+.card-hover:hover {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.class-nav {
+  --bs-nav-link-color: black;
+  --bs-nav-link-hover-color: black;
+}
+
+.class-nav-link {
+  --bs-nav-pills-link-active-bg: var(--bs-info);
+  --bs-nav-pills-link-active-color: black;
+}
+
+.class-nav-link:hover {
+  background-color: var(--bs-gray-200);
 }
