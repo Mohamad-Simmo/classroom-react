@@ -4,17 +4,21 @@ import { default as BsNavbar } from 'react-bootstrap/Navbar';
 import { LinkContainer } from 'react-router-bootstrap';
 import { BiLogIn } from 'react-icons/bi';
 import { IoCreateOutline } from 'react-icons/io5';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import AuthContext from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { GiBookmarklet } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import Avatar from './UI/Avatar';
+import AvatarDropdown from './UI/AvatarDropdown';
+import CloseButton from 'react-bootstrap/CloseButton';
 
 const Navbar = () => {
-  const { user, dispatch } = useContext(AuthContext);
+  const { user, role, dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+
+  const toggleShow = () => setShow((prev) => !prev);
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -27,7 +31,10 @@ const Navbar = () => {
     <BsNavbar bg="dark" variant="dark" expand={false}>
       <Container fluid className="d-flex justify-content-start gap-4">
         {user && (
-          <BsNavbar.Toggle aria-controls={`offcanvasNavbar-expand-false`} />
+          <BsNavbar.Toggle
+            aria-controls={`offcanvasNavbar-expand-false`}
+            onClick={toggleShow}
+          />
         )}
         <BsNavbar.Brand
           as={Link}
@@ -44,8 +51,9 @@ const Navbar = () => {
               aria-labelledby={`offcanvasNavbarLabel-expand-false`}
               placement="start"
               className="text-bg-dark offcanvas-size-sm"
+              show={show}
             >
-              <Offcanvas.Header closeButton closeVariant="white">
+              <Offcanvas.Header>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-false`}>
                   <BsNavbar.Brand
                     as={Link}
@@ -56,15 +64,25 @@ const Navbar = () => {
                     Classroom
                   </BsNavbar.Brand>
                 </Offcanvas.Title>
+                <CloseButton variant="white" onClick={toggleShow} />
               </Offcanvas.Header>
               <Offcanvas.Body>
-                <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link>Classes</Nav.Link>
-                  <Nav.Link>Archived</Nav.Link>
+                <Nav className="justify-content-end flex-grow-1 pe-3 gap-2">
+                  <Nav.Link as={Link} to="classes" onClick={toggleShow}>
+                    Classes
+                  </Nav.Link>
+                  {role === 'teacher' && (
+                    <Nav.Link as={Link} to="forms" onClick={toggleShow}>
+                      Forms
+                    </Nav.Link>
+                  )}
+                  <Nav.Link as={Link} to="archived" onClick={toggleShow}>
+                    Archived
+                  </Nav.Link>
                 </Nav>
               </Offcanvas.Body>
             </BsNavbar.Offcanvas>
-            <Avatar onLogout={handleLogout} />
+            <AvatarDropdown onLogout={handleLogout} />
           </>
         )}
         {!user && (

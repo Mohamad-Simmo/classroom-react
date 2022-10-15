@@ -1,7 +1,8 @@
 import Nav from 'react-bootstrap/Nav';
 import { Link } from 'react-router-dom';
 import { MdOutlineFeedback, MdOutlineAssignmentTurnedIn } from 'react-icons/md';
-import { BsJournalBookmark, BsChatDots } from 'react-icons/bs';
+import { IoSettingsOutline } from 'react-icons/io5';
+import { BsJournalBookmark, BsChatDots, BsPeople } from 'react-icons/bs';
 import { GoNote } from 'react-icons/go';
 const ClassNavigation = ({ active }) => {
   return (
@@ -24,6 +25,14 @@ const ClassNavigation = ({ active }) => {
       </Nav.Link>
       <Nav.Link
         as={Link}
+        to="chat"
+        className="class-nav-link"
+        active={active === 'Chat'}
+      >
+        <BsChatDots className="me-2" /> Chat
+      </Nav.Link>
+      <Nav.Link
+        as={Link}
         to="assignments"
         className="class-nav-link"
         active={active === 'Assignments'}
@@ -40,11 +49,19 @@ const ClassNavigation = ({ active }) => {
       </Nav.Link>
       <Nav.Link
         as={Link}
-        to="chat"
+        to="people"
         className="class-nav-link"
-        active={active === 'Chat'}
+        active={active === 'People'}
       >
-        <BsChatDots className="me-2" /> Chat
+        <BsPeople className="me-2" /> People
+      </Nav.Link>
+      <Nav.Link
+        as={Link}
+        to="settings"
+        className="class-nav-link"
+        active={active === 'Settings'}
+      >
+        <IoSettingsOutline className="me-2" /> Settings
       </Nav.Link>
     </Nav>
   );

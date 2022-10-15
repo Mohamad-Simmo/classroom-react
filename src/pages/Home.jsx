@@ -9,12 +9,15 @@ import Row from 'react-bootstrap/Row';
 import { getRole } from '../utils/userAPI';
 import { getClasses } from '../utils/classAPI';
 import Spinner from 'react-bootstrap/Spinner';
+import CreateClassModal from '../components/Modals/CreateClassModal';
+import JoinClassModal from '../components/Modals/JoinClassModal';
 
 const Home = () => {
   const { user, role, dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
   const [classes, setClasses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [modal, setModal] = useState('');
 
   useEffect(() => {
     if (!user) {
@@ -36,24 +39,40 @@ const Home = () => {
     }
   }, [user, navigate, dispatch]);
 
+  const handleClose = () => setModal('');
+  const handleShow = (e) => setModal(e.target.dataset.modal);
+
   return (
     <>
+      {role && role === 'teacher' && (
+        <CreateClassModal show={modal === 'create'} handleClose={handleClose} />
+      )}
+      <JoinClassModal show={modal === 'join'} handleClose={handleClose} />
       <Stack direction="horizontal" className="border-bottom border-dark">
         <h2 className="">Classes</h2>
         {role && (
-          <Stack direction="horizontal" gap={2} className="ms-auto mb-2">
-            <Button
-              variant={role === 'teacher' ? 'outline-dark' : 'info'}
-              className="rounded-5"
-            >
-              Join Class
-            </Button>
-            {role === 'teacher' && (
-              <Button variant="info" className="rounded-5">
-                Create Class
+          <>
+            <Stack direction="horizontal" gap={2} className="ms-auto mb-2">
+              <Button
+                variant={role === 'teacher' ? 'outline-dark' : 'info'}
+                className="rounded-5"
+                data-modal="join"
+                onClick={handleShow}
+              >
+                Join Class
               </Button>
-            )}
-          </Stack>
+              {role === 'teacher' && (
+                <Button
+                  variant="info"
+                  className="rounded-5"
+                  data-modal="create"
+                  onClick={handleShow}
+                >
+                  Create Class
+                </Button>
+              )}
+            </Stack>
+          </>
         )}
       </Stack>
       {isLoading ? (

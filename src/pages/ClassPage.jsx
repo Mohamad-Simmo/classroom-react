@@ -24,32 +24,33 @@ const ClassPage = () => {
   return (
     <Row>
       <Col md={3}>
-        <h3 className="d-none d-md-block">Class Name</h3>
-        <Stack
-          direction="horizontal"
-          className="d-md-none justify-content-between"
-          role="button"
-          onClick={() => {
-            setExpand((prev) => !prev);
-          }}
-        >
-          <h3>Class Name</h3>
-          {expand ? (
-            <BsChevronUp className="d-md-none h3" />
-          ) : (
-            <BsChevronDown className="d-md-none h3" />
-          )}
-        </Stack>
+        <div className="sticky-top">
+          <h3 className="d-none d-md-block">Class Name</h3>
+          <Stack
+            direction="horizontal"
+            className="d-md-none justify-content-between"
+            role="button"
+            onClick={() => {
+              setExpand((prev) => !prev);
+            }}
+          >
+            <h3>Class Name</h3>
+            {expand ? (
+              <BsChevronUp className="d-md-none h3" />
+            ) : (
+              <BsChevronDown className="d-md-none h3" />
+            )}
+          </Stack>
 
-        {mobile ? (
-          expand && <ClassNavigation active={active} />
-        ) : (
-          <ClassNavigation active={active} />
-        )}
+          {mobile ? (
+            expand && <ClassNavigation active={active} />
+          ) : (
+            <ClassNavigation active={active} />
+          )}
+        </div>
       </Col>
       <Col
         md={9}
-        className="border-start border-dark"
         style={{
           height: '80vh',
         }}

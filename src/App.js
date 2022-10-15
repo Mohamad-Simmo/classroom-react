@@ -11,6 +11,8 @@ import Material from './components/Material';
 import Tests from './components/Tests';
 import Assignments from './components/Assignments';
 import Chat from './components/Chat';
+import People from './components/People';
+import ClassSettings from './components/ClassSettings';
 
 const App = () => {
   return (
@@ -29,10 +31,13 @@ const App = () => {
               />
               <Route path="/classes/:id/tests" element={<Tests />} />
               <Route path="/classes/:id/chat" element={<Chat />} />
+              <Route path="/classes/:id/people" element={<People />} />
+              <Route path="/classes/:id/settings" element={<ClassSettings />} />
             </Route>
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="*" element={<h1>404 Not Found</h1>} />
         </Route>
       </Routes>
     </Router>
