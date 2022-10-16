@@ -5,12 +5,12 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { BiLogIn } from 'react-icons/bi';
 import { IoCreateOutline } from 'react-icons/io5';
 import { useContext, useState } from 'react';
-import AuthContext from '../context/AuthContext';
+import AuthContext from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { GiBookmarklet } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import AvatarDropdown from './UI/AvatarDropdown';
+import AvatarDropdown from '../UI/AvatarDropdown';
 import CloseButton from 'react-bootstrap/CloseButton';
 
 const Navbar = () => {

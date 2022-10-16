@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Stack from 'react-bootstrap/Stack';
 import Button from 'react-bootstrap/Button';
-import ClassCard from '../components/ClassCard';
+import ClassCard from '../components/UI/ClassCard';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { getRole } from '../utils/userAPI';

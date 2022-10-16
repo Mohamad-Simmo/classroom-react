@@ -1,18 +1,18 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Index from './pages/Index';
+import Index from './components/Containers/Index';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
 import ClassPage from './pages/ClassPage';
-import ClassesContainer from './pages/ClassesContainer';
+import ClassesContainer from './components/Containers/ClassesContainer';
 import Landing from './pages/Landing';
-import Feed from './components/Feed';
-import Material from './components/Material';
-import Tests from './components/Tests';
-import Assignments from './components/Assignments';
-import Chat from './components/Chat';
-import People from './components/People';
-import ClassSettings from './components/ClassSettings';
+import Feed from './components/Feed/Feed';
+import Material from './components/Material/Material';
+import Tests from './components/Tests/Tests';
+import Assignments from './components/Assignments/Assignments';
+import Chat from './components/Chat/Chat';
+import People from './components/People/People';
+import ClassSettings from './components/Settings/ClassSettings';
 
 const App = () => {
   return (

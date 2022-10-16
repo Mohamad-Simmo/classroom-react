@@ -6,7 +6,7 @@ import rehypeSanitize from 'rehype-sanitize';
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
-import Avatar from './UI/Avatar';
+import Avatar from '../UI/Avatar';
 
 const Feed = () => {
   const setActive = useOutletContext();

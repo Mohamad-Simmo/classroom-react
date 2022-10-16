@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 const ClassesContainer = () => {
   return (
-    <Container className="py-3">
+    <Container className="py-3" fluid="lg">
       <Outlet />
     </Container>
   );
