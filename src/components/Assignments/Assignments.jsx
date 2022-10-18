@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
 const Assignments = () => {
-  const setActive = useOutletContext();
+  const { setActive } = useOutletContext();
   useEffect(() => {
     setActive('Assignments');
   });

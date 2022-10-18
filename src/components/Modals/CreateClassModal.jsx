@@ -3,8 +3,12 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
+import { createClass } from '../../utils/classAPI';
+import { useContext } from 'react';
+import AuthContext from '../../context/AuthContext';
 
-const CreateClassModal = ({ show, handleClose }) => {
+const CreateClassModal = ({ show, handleClose, addClass }) => {
+  const { user } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -28,10 +32,14 @@ const CreateClassModal = ({ show, handleClose }) => {
 
   const handleCreate = () => {
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      handleClose();
-    }, 5000);
+    createClass(user.token, formData)
+      .then(({ data }) => {
+        addClass(data);
+      })
+      .then(() => {
+        setIsLoading(false);
+        handleClose();
+      });
   };
 
   return (

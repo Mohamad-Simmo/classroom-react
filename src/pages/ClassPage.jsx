@@ -1,17 +1,43 @@
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Outlet } from 'react-router-dom';
-import { useState } from 'react';
+import { Outlet, useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useState, useContext } from 'react';
 import ClassNavigation from '../components/Navigation/ClassNavigation';
+import { getClass } from '../utils/classAPI';
+import AuthContext from '../context/AuthContext';
 
 const ClassPage = () => {
+  const { user } = useContext(AuthContext);
   const [active, setActive] = useState('Feed');
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [classData, setClassData] = useState({
+    full_name: '',
+    name: '',
+    description: '',
+    num_people: '',
+    id: '',
+    code: '',
+  });
+
+  const { full_name: instructor, name, description, num_people } = classData;
+
+  useEffect(() => {
+    getClass(user.token, id)
+      .then(({ data }) => {
+        setClassData(data);
+      })
+      .catch(() => {
+        navigate('/classes');
+      });
+  }, [id, user, navigate]);
 
   return (
     <Row>
       <Col md={3}>
         <div className="sticky-top">
-          <h3>Class Name</h3>
+          <h3>{name}</h3>
 
           <ClassNavigation active={active} />
         </div>
@@ -22,7 +48,9 @@ const ClassPage = () => {
           height: '80vh',
         }}
       >
-        <Outlet context={setActive} />
+        <Outlet
+          context={{ setActive, instructor, name, description, num_people }}
+        />
       </Col>
     </Row>
   );

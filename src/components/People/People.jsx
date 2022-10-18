@@ -2,7 +2,7 @@ import { useOutletContext } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const People = () => {
-  const setActive = useOutletContext();
+  const { setActive } = useOutletContext();
   useEffect(() => {
     setActive('People');
   });

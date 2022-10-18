@@ -7,9 +7,10 @@ import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 import Avatar from '../UI/Avatar';
+import Form from 'react-bootstrap/Form';
 
 const Feed = () => {
-  const setActive = useOutletContext();
+  const { setActive } = useOutletContext();
   const [value, setValue] = useState('');
   const accordionRef = useRef(null);
   useEffect(() => {
@@ -32,7 +33,7 @@ const Feed = () => {
         <Accordion.Item eventKey={1}>
           <Accordion.Button ref={accordionRef}>New Post</Accordion.Button>
           <Accordion.Body>
-            <form onSubmit={handleSubmit} onReset={handleReset}>
+            <Form onSubmit={handleSubmit} onReset={handleReset}>
               <MDEditor
                 value={value}
                 onChange={setValue}
@@ -54,7 +55,7 @@ const Feed = () => {
                   Submit
                 </Button>
               </Stack>
-            </form>
+            </Form>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>

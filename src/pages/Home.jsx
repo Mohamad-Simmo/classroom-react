@@ -1,43 +1,19 @@
 import AuthContext from '../context/AuthContext';
-import { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { useOutletContext } from 'react-router-dom';
 import Stack from 'react-bootstrap/Stack';
 import Button from 'react-bootstrap/Button';
 import ClassCard from '../components/UI/ClassCard';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { getRole } from '../utils/userAPI';
-import { getClasses } from '../utils/classAPI';
 import Spinner from 'react-bootstrap/Spinner';
 import CreateClassModal from '../components/Modals/CreateClassModal';
 import JoinClassModal from '../components/Modals/JoinClassModal';
 
 const Home = () => {
-  const { user, role, dispatch } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const [classes, setClasses] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { role } = useContext(AuthContext);
+  const { classes, addClass, isLoading } = useOutletContext();
   const [modal, setModal] = useState('');
-
-  useEffect(() => {
-    if (!user) {
-      navigate('/login');
-    } else {
-      setIsLoading(true);
-      getRole(user.token).then((response) => {
-        dispatch({
-          type: 'ROLE',
-          payload: response.data.role,
-        });
-      });
-
-      getClasses(user.token)
-        .then((response) => {
-          setClasses(response.data);
-        })
-        .then(() => setIsLoading(false));
-    }
-  }, [user, navigate, dispatch]);
 
   const handleClose = () => setModal('');
   const handleShow = (e) => setModal(e.target.dataset.modal);
@@ -45,7 +21,11 @@ const Home = () => {
   return (
     <>
       {role && role === 'teacher' && (
-        <CreateClassModal show={modal === 'create'} handleClose={handleClose} />
+        <CreateClassModal
+          addClass={addClass}
+          show={modal === 'create'}
+          handleClose={handleClose}
+        />
       )}
       <JoinClassModal show={modal === 'join'} handleClose={handleClose} />
       <Stack direction="horizontal" className="border-bottom border-dark">
