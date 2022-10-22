@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
 const Tests = () => {
-  const {setActive} = useOutletContext();
+  const { setActive } = useOutletContext();
   useEffect(() => {
     setActive('Tests');
   });
