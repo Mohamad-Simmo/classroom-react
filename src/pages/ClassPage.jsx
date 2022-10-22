@@ -19,9 +19,16 @@ const ClassPage = () => {
     num_people: '',
     id: '',
     code: '',
+    isArchived: null,
   });
 
-  const { full_name: instructor, name, description, num_people } = classData;
+  const {
+    full_name: instructor,
+    name,
+    description,
+    num_people,
+    archived: isArchived,
+  } = classData;
 
   useEffect(() => {
     getClass(user.token, id)
@@ -49,7 +56,16 @@ const ClassPage = () => {
         }}
       >
         <Outlet
-          context={{ setActive, instructor, name, description, num_people }}
+          context={{
+            setActive,
+            instructor,
+            name,
+            description,
+            num_people,
+            id,
+            isArchived,
+            setClassData,
+          }}
         />
       </Col>
     </Row>

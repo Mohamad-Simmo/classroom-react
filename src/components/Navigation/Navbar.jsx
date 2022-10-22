@@ -76,7 +76,11 @@ const Navbar = () => {
                       Forms
                     </Nav.Link>
                   )}
-                  <Nav.Link as={Link} to="archived" onClick={toggleShow}>
+                  <Nav.Link
+                    as={Link}
+                    to="classes/archived"
+                    onClick={toggleShow}
+                  >
                     Archived
                   </Nav.Link>
                 </Nav>

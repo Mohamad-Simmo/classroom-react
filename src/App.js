@@ -13,6 +13,7 @@ import Assignments from './components/Assignments/Assignments';
 import Chat from './components/Chat/Chat';
 import People from './components/People/People';
 import ClassSettings from './components/Settings/ClassSettings';
+import Archived from './pages/Archived';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route index element={<Landing />} />
           <Route path="/classes" element={<ClassesContainer />}>
             <Route index element={<Home />} />
+            <Route path="/classes/archived" element={<Archived />} />
             <Route path="/classes/:id" element={<ClassPage />}>
               <Route index element={<Feed />} />
               <Route path="/classes/:id/material" element={<Material />} />

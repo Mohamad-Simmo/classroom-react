@@ -1,5 +1,5 @@
 import AuthContext from '../context/AuthContext';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import Stack from 'react-bootstrap/Stack';
 import Button from 'react-bootstrap/Button';
@@ -12,8 +12,13 @@ import JoinClassModal from '../components/Modals/JoinClassModal';
 
 const Home = () => {
   const { role } = useContext(AuthContext);
-  const { classes, addClass, isLoading } = useOutletContext();
+  const { classes: all, addClass, isLoading } = useOutletContext();
+  const [classes, setClasses] = useState([]);
   const [modal, setModal] = useState('');
+
+  useEffect(() => {
+    setClasses(all.filter((_class) => !!_class.archived === false));
+  }, [all]);
 
   const handleClose = () => setModal('');
   const handleShow = (e) => setModal(e.target.dataset.modal);
@@ -29,7 +34,7 @@ const Home = () => {
       )}
       <JoinClassModal show={modal === 'join'} handleClose={handleClose} />
       <Stack direction="horizontal" className="border-bottom border-dark">
-        <h2 className="">Classes</h2>
+        <h2>Classes</h2>
         {role && (
           <>
             <Stack direction="horizontal" gap={2} className="ms-auto mb-2">
