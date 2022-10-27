@@ -6,16 +6,24 @@ import rehypeSanitize from 'rehype-sanitize';
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
-import Avatar from '../UI/Avatar';
 import Form from 'react-bootstrap/Form';
+import { createPost, getPosts } from '../../utils/postAPI';
+import { useContext } from 'react';
+import AuthContext from '../../context/AuthContext';
+import FeedPost from './FeedPost';
 
 const Feed = () => {
-  const { setActive } = useOutletContext();
+  const { user } = useContext(AuthContext);
+  const { setActive, id } = useOutletContext();
   const [value, setValue] = useState('');
+  const [posts, setPosts] = useState([]);
   const accordionRef = useRef(null);
+
   useEffect(() => {
     setActive('Feed');
-  });
+
+    getPosts(user.token, id).then(({ data }) => setPosts(data));
+  }, [setActive, user, id]);
 
   const handleReset = (e) => {
     e.preventDefault();
@@ -25,6 +33,14 @@ const Feed = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    createPost(user.token, {
+      class_id: id,
+      body: value,
+    }).then(({ data }) => {
+      setPosts((prev) => [data, ...prev]);
+      setValue('');
+      accordionRef.current.click();
+    });
   };
 
   return (
@@ -60,58 +76,20 @@ const Feed = () => {
         </Accordion.Item>
       </Accordion>
 
-      <div className="p-3 border rounded my-3">
-        <Stack
-          direction="horizontal"
-          className="justify-content-between align-items-baseline"
-        >
-          <Stack
-            direction="horizontal"
-            gap={3}
-            className="align-items-center mb-2"
-          >
-            <Avatar />
-            <div className="fs-6 fw-semibold">Name</div>
-          </Stack>
-          <div className="text-muted">Date</div>
-        </Stack>
-        <MDEditor.Markdown source="Hello Markdown!" />
-      </div>
-
-      <div className="p-3 border rounded my-3">
-        <Stack
-          direction="horizontal"
-          className="justify-content-between align-items-baseline"
-        >
-          <Stack
-            direction="horizontal"
-            gap={3}
-            className="align-items-center mb-2"
-          >
-            <Avatar />
-            <div className="fs-6 fw-semibold">Name</div>
-          </Stack>
-          <div className="text-muted">Date</div>
-        </Stack>
-        <MDEditor.Markdown source="Hello Markdown!" />
-      </div>
-      <div className="p-3 border rounded my-3">
-        <Stack
-          direction="horizontal"
-          className="justify-content-between align-items-baseline"
-        >
-          <Stack
-            direction="horizontal"
-            gap={3}
-            className="align-items-center mb-2"
-          >
-            <Avatar />
-            <div className="fs-6 fw-semibold">Name</div>
-          </Stack>
-          <div className="text-muted">Date</div>
-        </Stack>
-        <MDEditor.Markdown source="Hello Markdown!" />
-      </div>
+      {posts.length === 0 ? (
+        <h6 className="text-muted text-center mt-5 pt-5">
+          No posts yet. Create a new one!
+        </h6>
+      ) : (
+        posts.map((post) => (
+          <FeedPost
+            key={post.id}
+            source={post.body}
+            name={post.full_name}
+            time={post.timestamp}
+          />
+        ))
+      )}
     </>
   );
 };
