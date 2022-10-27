@@ -41,7 +41,7 @@ const ClassPage = () => {
   }, [id, user, navigate]);
 
   return (
-    <Row>
+    <Row className="h-100">
       <Col md={3}>
         <div className="sticky-top">
           <h3>{name}</h3>
@@ -49,12 +49,7 @@ const ClassPage = () => {
           <ClassNavigation active={active} />
         </div>
       </Col>
-      <Col
-        md={9}
-        style={{
-          height: '80vh',
-        }}
-      >
+      <Col md={9}>
         <Outlet
           context={{
             setActive,

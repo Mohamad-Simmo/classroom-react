@@ -1,4 +1,4 @@
-const Avatar = () => {
-  return <div className={'avatar text-bg-info'}></div>;
+const Avatar = ({ name }) => {
+  return <div className={'avatar text-bg-info'}>MS</div>;
 };
 export default Avatar;

@@ -14,6 +14,9 @@ import Chat from './components/Chat/Chat';
 import People from './components/People/People';
 import ClassSettings from './components/Settings/ClassSettings';
 import Archived from './pages/Archived';
+import NotFound from './pages/NotFound';
+import Forms from './pages/Forms';
+import NewForm from './pages/NewForm';
 
 const App = () => {
   return (
@@ -39,8 +42,10 @@ const App = () => {
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="*" element={<h1>404 Not Found</h1>} />
+          <Route path="/forms" element={<Forms />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
+        <Route path="/forms/new" element={<NewForm />} />
       </Routes>
     </Router>
   );

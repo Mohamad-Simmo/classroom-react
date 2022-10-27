@@ -6,7 +6,7 @@ const Material = () => {
   const { setActive } = useOutletContext();
   useEffect(() => {
     setActive('Material');
-  });
+  }, [setActive]);
   return (
     <>
       <Accordion>

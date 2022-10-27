@@ -5,7 +5,7 @@ const Assignments = () => {
   const { setActive } = useOutletContext();
   useEffect(() => {
     setActive('Assignments');
-  });
+  }, [setActive]);
   return <div>Assignments</div>;
 };
 export default Assignments;

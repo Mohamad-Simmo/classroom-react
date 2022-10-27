@@ -37,7 +37,13 @@ const ClassesContainer = () => {
   };
 
   return (
-    <Container className="py-3" fluid="lg">
+    <Container
+      className="py-3"
+      fluid="lg"
+      style={{
+        height: 'calc(100% - 66px)',
+      }}
+    >
       <Outlet context={{ classes, addClass, isLoading }} />
     </Container>
   );

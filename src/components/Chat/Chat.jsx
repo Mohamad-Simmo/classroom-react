@@ -10,7 +10,7 @@ const Chat = () => {
   const { setActive } = useOutletContext();
   useEffect(() => {
     setActive('Chat');
-  });
+  }, [setActive]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

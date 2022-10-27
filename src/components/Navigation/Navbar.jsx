@@ -86,7 +86,7 @@ const Navbar = () => {
                 </Nav>
               </Offcanvas.Body>
             </BsNavbar.Offcanvas>
-            <AvatarDropdown onLogout={handleLogout} />
+            <AvatarDropdown fullName={user.full_name} onLogout={handleLogout} />
           </>
         )}
         {!user && (

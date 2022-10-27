@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { BiLogOut } from 'react-icons/bi';
+import { useEffect, useState } from 'react';
 
 const AvatarDropdown = ({ fullName, onLogout }) => {
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    const [first, last] = fullName.split(' ');
+    setName(first.charAt(0).toUpperCase() + last.charAt(0).toUpperCase());
+  }, [fullName]);
+
   return (
     <>
       <Dropdown className="ms-auto me-3">
         <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-          M
+          {name}
         </Dropdown.Toggle>
 
         <Dropdown.Menu

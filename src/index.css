@@ -74,6 +74,12 @@
   --bs-highlight-bg: #fff3cd;
 }
 
+html,
+body,
+#root {
+  height: 100%;
+}
+
 .offcanvas-size-sm {
   --bs-offcanvas-width: min(95vw, 250px) !important;
 }
