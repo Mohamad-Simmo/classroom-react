@@ -1,15 +1,8 @@
 import axios from 'axios';
+import { config } from './userAPI';
 
 const base_url = 'http://localhost/classroom-api';
 const route = '/api/classes';
-
-const config = (token) => {
-  return {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-};
 
 export const getClasses = async (token) => {
   return await axios.get(base_url + route + '/read.php', config(token));
