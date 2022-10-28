@@ -3,13 +3,15 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Question from '../components/Form/Question';
+import Stack from 'react-bootstrap/Stack';
 import Container from 'react-bootstrap/Container';
 
-const choice = { choice: '', isCorrect: false };
+import { AiOutlinePlus } from 'react-icons/ai';
+import { FiEdit2 } from 'react-icons/fi';
 
 const question = {
   question: '',
-  choices: [choice],
+  choices: [{ choice: '', isCorrect: false }],
   grade: null,
 };
 
@@ -20,81 +22,48 @@ const NewForm = () => {
     setQuestions((prev) => [...prev, question]);
   };
 
-  const removeQuestion = (index) => {
-    const questionsTemp = questions;
-    questionsTemp.splice(index, 1);
-    setQuestions([...questionsTemp]);
-  };
-
-  const addChoice = (index) => {
-    const questionsTemp = questions;
-    const choicesTemp = [...questions[index].choices, choice];
-    questionsTemp[index] = {
-      ...questionsTemp[index],
-      choices: choicesTemp,
-    };
-    setQuestions([...questionsTemp]);
-  };
-
-  const removeChoice = (questionIndex, choiceIndex) => {
-    const questionsTemp = questions;
-    const choicesTemp = [...questionsTemp[questionIndex].choices];
-    choicesTemp.splice(choiceIndex, 1);
-    questionsTemp[questionIndex] = {
-      ...questionsTemp[questionIndex],
-      choices: choicesTemp,
-    };
-    setQuestions([...questionsTemp]);
-  };
-
-  const handleQuestionChange = (event, index) => {
-    const questionsTemp = questions;
-    questionsTemp[index] = {
-      ...questionsTemp[index],
-      question: event.target.value,
-    };
-    setQuestions([...questionsTemp]);
-  };
-
-  const handleChoiceChange = (event, questionIndex, choiceIndex) => {
-    const questionsTemp = questions;
-    const choicesTemp = [...questionsTemp[questionIndex].choices];
-    choicesTemp[choiceIndex] = {
-      ...choicesTemp[choiceIndex],
-      choice: event.target.value,
-    };
-
-    questionsTemp[questionIndex] = {
-      ...questionsTemp[questionIndex],
-      choices: choicesTemp,
-    };
-    setQuestions([...questionsTemp]);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(questions);
   };
 
   return (
-    <Container>
+    <Container className="py-3">
+      <Stack
+        direction="horizontal"
+        gap={1}
+        className="align-items-bottom border-bottom border-secondary w-sm-25"
+      >
+        <Form.Control
+          plaintext
+          placeholder="Form Title"
+          className="fs-2"
+          autoFocus
+        />
+        <FiEdit2 className="fs-4 text-secondary " />
+      </Stack>
       <Form onSubmit={handleSubmit} autoComplete="off">
         {questions.map((q, idx) => (
           <Question
             key={idx}
-            questionValue={q.question}
             index={idx}
-            choices={q.choices}
-            grade={q.grade}
-            addChoice={addChoice}
-            removeQuestion={removeQuestion}
-            removeChoice={removeChoice}
-            handleQuestionChange={handleQuestionChange}
-            handleChoiceChange={handleChoiceChange}
+            currentQuestion={q}
+            questions={questions}
+            setQuestions={setQuestions}
           />
         ))}
-        <Button onClick={addQuestion}>Add Question</Button>
-        <Button type="submit">Submit</Button>
+        <Stack
+          direction="horizontal"
+          gap={2}
+          className="justify-content-between my-3"
+        >
+          <Button variant="dark" className="rounded-5" onClick={addQuestion}>
+            <AiOutlinePlus /> Question
+          </Button>
+          <Button type="submit" variant="info">
+            Save
+          </Button>
+        </Stack>
       </Form>
     </Container>
   );
