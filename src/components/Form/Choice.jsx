@@ -1,58 +1,53 @@
 import { Button, Stack, Form } from 'react-bootstrap';
 import { AiOutlineCheck, AiOutlineDelete } from 'react-icons/ai';
 
-const Choice = ({
-  index,
-  questions,
-  setQuestions,
-  questionIndex,
-  currentChoice,
-}) => {
-  const { choice: value, isCorrect } = currentChoice;
+const Choice = ({ index, questions, setQuestions, questionIndex, choice }) => {
+  const { correctChoiceIndex } = questions[questionIndex];
+  const isCorrect = index === correctChoiceIndex;
 
-  const removeChoice = (questionIndex, choiceIndex) => {
-    const questionsTemp = questions;
-    const choicesTemp = [...questionsTemp[questionIndex].choices];
-    choicesTemp.splice(choiceIndex, 1);
-    questionsTemp[questionIndex] = {
-      ...questionsTemp[questionIndex],
-      choices: choicesTemp,
-    };
-    setQuestions([...questionsTemp]);
-  };
+  const removeChoice = () => {
+    const questionsTemp = [...questions];
+    const question = questionsTemp[questionIndex];
+    const choicesTemp = [...question.choices];
 
-  const handleChoiceChange = (event, questionIndex, choiceIndex) => {
-    const questionsTemp = questions;
-    const choicesTemp = [...questionsTemp[questionIndex].choices];
-    choicesTemp[choiceIndex] = {
-      ...choicesTemp[choiceIndex],
-      choice: event.target.value,
-    };
+    choicesTemp.splice(index, 1);
 
-    questionsTemp[questionIndex] = {
-      ...questionsTemp[questionIndex],
-      choices: choicesTemp,
-    };
-    setQuestions([...questionsTemp]);
-  };
-
-  const setCorrect = (event, questionIndex, choiceIndex) => {
-    event.preventDefault();
-    const questionsTemp = questions;
-    const choicesTemp = [...questionsTemp[questionIndex].choices];
-
-    // reset choices array
-    for (let index in choicesTemp) {
-      choicesTemp[index] = { ...choicesTemp[index], isCorrect: false };
+    if (question.correctChoiceIndex === index) {
+      question.correctChoiceIndex = null;
+    } else if (index < question.correctChoiceIndex) {
+      question.correctChoiceIndex--;
     }
-    choicesTemp[choiceIndex] = { ...choicesTemp[choiceIndex], isCorrect: true };
+
+    questionsTemp[questionIndex] = {
+      ...questionsTemp[questionIndex],
+      choices: [...choicesTemp],
+    };
+
+    setQuestions([...questionsTemp]);
+  };
+
+  const handleChoiceChange = (event) => {
+    const questionsTemp = [...questions];
+    const choicesTemp = [...questionsTemp[questionIndex].choices];
+    choicesTemp[index] = event.target.value;
 
     questionsTemp[questionIndex] = {
       ...questionsTemp[questionIndex],
       choices: choicesTemp,
     };
+    setQuestions(questionsTemp);
+  };
 
-    setQuestions([...questionsTemp]);
+  const setCorrect = (event) => {
+    event.preventDefault();
+    const questionsTemp = [...questions];
+
+    questionsTemp[questionIndex] = {
+      ...questionsTemp[questionIndex],
+      correctChoiceIndex: index,
+    };
+
+    setQuestions(questionsTemp);
   };
 
   return (
@@ -63,13 +58,13 @@ const Choice = ({
       <Form.Control
         type="text"
         placeholder="Choice"
-        value={value}
-        onChange={(e) => handleChoiceChange(e, questionIndex, index)}
+        value={choice}
+        onChange={handleChoiceChange}
       />
       <Button
         type="checkbox"
         variant={isCorrect ? 'success' : 'outline-secondary'}
-        onClick={(e) => setCorrect(e, questionIndex, index)}
+        onClick={setCorrect}
         className="border-0"
       >
         <AiOutlineCheck />
@@ -77,7 +72,7 @@ const Choice = ({
       <Button
         variant="outline-danger"
         className="border-0"
-        onClick={() => removeChoice(questionIndex, index)}
+        onClick={removeChoice}
       >
         <AiOutlineDelete />
       </Button>

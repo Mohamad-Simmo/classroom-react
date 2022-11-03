@@ -5,38 +5,44 @@ import Choice from './Choice';
 import { AiOutlineDelete, AiOutlinePlus } from 'react-icons/ai';
 
 const Question = ({ index, currentQuestion, questions, setQuestions }) => {
-  const { question: value, choices } = currentQuestion;
+  const { question, choices, grade } = currentQuestion;
 
-  const removeQuestion = (index) => {
-    const questionsTemp = questions;
+  const removeQuestion = () => {
+    const questionsTemp = [...questions];
     questionsTemp.splice(index, 1);
-    setQuestions([...questionsTemp]);
+    setQuestions(questionsTemp);
   };
 
-  const addChoice = (index) => {
-    const questionsTemp = questions;
-    const choicesTemp = [
-      ...questions[index].choices,
-      { choice: '', isCorrect: false },
-    ];
+  const addChoice = () => {
+    const questionsTemp = [...questions];
+    const choicesTemp = [...questions[index].choices, ''];
     questionsTemp[index] = {
       ...questionsTemp[index],
       choices: choicesTemp,
     };
-    setQuestions([...questionsTemp]);
+    setQuestions(questionsTemp);
   };
 
-  const handleQuestionChange = (event, index) => {
-    const questionsTemp = questions;
+  const handleQuestionChange = (event) => {
+    const questionsTemp = [...questions];
     questionsTemp[index] = {
       ...questionsTemp[index],
       question: event.target.value,
     };
-    setQuestions([...questionsTemp]);
+    setQuestions(questionsTemp);
+  };
+
+  const handleGradeChange = (event) => {
+    const questionsTemp = [...questions];
+    questionsTemp[index] = {
+      ...questionsTemp[index],
+      grade: event.target.value,
+    };
+    setQuestions(questionsTemp);
   };
 
   return (
-    <div className="border rounded bg-light p-3 my-3">
+    <div className="border rounded bg-light p-3 my-3 question">
       <Form.Group
         className="d-flex align-items-center gap-2"
         controlId={`formQuestion${index}`}
@@ -46,13 +52,13 @@ const Question = ({ index, currentQuestion, questions, setQuestions }) => {
           className=""
           type="text"
           placeholder="Question"
-          value={value}
-          onChange={(e) => handleQuestionChange(e, index)}
+          value={question}
+          onChange={handleQuestionChange}
         />
         <Button
           variant="outline-danger"
           className="border-0"
-          onClick={() => removeQuestion(index)}
+          onClick={removeQuestion}
         >
           <AiOutlineDelete />
         </Button>
@@ -64,14 +70,14 @@ const Question = ({ index, currentQuestion, questions, setQuestions }) => {
             key={idx}
             index={idx}
             questionIndex={index}
-            currentChoice={c}
+            choice={c}
             questions={questions}
             setQuestions={setQuestions}
           />
         ))}
         <Button
           variant="dark"
-          onClick={() => addChoice(index)}
+          onClick={addChoice}
           className="d-flex align-items-center gap-2 rounded-5"
         >
           <AiOutlinePlus />
@@ -88,6 +94,8 @@ const Question = ({ index, currentQuestion, questions, setQuestions }) => {
           min="0"
           max="100"
           placeholder="0"
+          value={grade}
+          onChange={handleGradeChange}
           style={{
             width: '75px',
           }}

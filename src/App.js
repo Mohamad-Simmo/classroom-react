@@ -16,7 +16,7 @@ import ClassSettings from './components/Settings/ClassSettings';
 import Archived from './pages/Archived';
 import NotFound from './pages/NotFound';
 import Forms from './pages/Forms';
-import NewForm from './pages/NewForm';
+import EditForm from './pages/EditForm';
 
 const App = () => {
   return (
@@ -45,7 +45,7 @@ const App = () => {
           <Route path="/forms" element={<Forms />} />
         </Route>
         <Route path="*" element={<NotFound />} />
-        <Route path="/forms/new" element={<NewForm />} />
+        <Route path="/forms/edit" element={<EditForm />} />
       </Routes>
     </Router>
   );
