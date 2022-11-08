@@ -30,3 +30,32 @@ export const deleteForm = async (token, formID) => {
     data: { form_id: formID },
   });
 };
+
+export const assignForm = async (token, formData) => {
+  return await axios.post(
+    base_url + route + '/assign.php',
+    formData,
+    config(token)
+  );
+};
+
+export const getAssignedCount = async (token, classID) => {
+  return await axios.get(
+    base_url + route + `/get_assigned_count.php?class_id=${classID}`,
+    config(token)
+  );
+};
+
+export const getAssigned = async (token, classID) => {
+  return await axios.get(
+    base_url + route + `/get_assigned.php?class_id=${classID}`,
+    config(token)
+  );
+};
+
+export const solveAssigned = async (token, assignID) => {
+  return await axios.get(
+    base_url + route + `/solve_assigned.php?assign_id=${assignID}`,
+    config(token)
+  );
+};

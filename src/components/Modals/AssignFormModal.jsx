@@ -4,7 +4,9 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Stack from 'react-bootstrap/Stack';
-import { useReducer } from 'react';
+import { useReducer, useContext } from 'react';
+import { assignForm } from '../../utils/formAPI';
+import AuthContext from '../../context/AuthContext';
 
 const initialState = {
   type: '',
@@ -17,6 +19,8 @@ const reducer = (state, action) => {
   switch (action.type) {
     case 'CHANGE_INPUT':
       return { ...state, [action.field]: action.payload };
+    case 'RESET':
+      return initialState;
     default:
       return state;
   }
@@ -28,10 +32,15 @@ const AssignFormModal = ({
   data: { id: formID, title },
   classes,
 }) => {
+  const { user } = useContext(AuthContext);
+
   const [state, dispatch] = useReducer(reducer, initialState);
   const { type, classID, start, end } = state;
 
-  const handleClose = () => setShow('');
+  const handleClose = () => {
+    setShow('');
+    dispatch({ type: 'RESET' });
+  };
 
   const handleInputChange = (e) =>
     dispatch({
@@ -43,11 +52,21 @@ const AssignFormModal = ({
   const handleSubmit = (e) => {
     if (start >= end) {
       console.log('invalid!');
+      return;
     }
+
     console.log({
-      formID,
+      form_id: formID,
+      class_id: parseInt(classID),
       type,
-      classID: parseInt(classID),
+      start: new Date(start).toISOString().slice(0, 19).replace('T', ' '),
+      end: new Date(end).toISOString().slice(0, 19).replace('T', ' '),
+    });
+
+    assignForm(user.token, {
+      form_id: formID,
+      class_id: parseInt(classID),
+      type,
       start: new Date(start).toISOString().slice(0, 19).replace('T', ' '),
       end: new Date(end).toISOString().slice(0, 19).replace('T', ' '),
     });

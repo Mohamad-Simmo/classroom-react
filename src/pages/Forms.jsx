@@ -11,7 +11,6 @@ const Forms = () => {
   const { user } = useContext(AuthContext);
   const [forms, setForms] = useState([]);
   const [show, setShow] = useState('');
-  const [buttons, setButtons] = useState();
   const [modalData, setModalData] = useState({});
   const [classes, setClasses] = useState([]);
 
@@ -22,10 +21,6 @@ const Forms = () => {
   const showModal = (e, modalData) => {
     setModalData(modalData);
     setShow(e.target.dataset.show);
-  };
-
-  const showButtons = (idx) => {
-    setButtons(idx);
   };
 
   useEffect(() => {
@@ -65,12 +60,7 @@ const Forms = () => {
           <Fragment key={form.id}>
             <Stack
               direction="horizontal"
-              className={
-                'align-items-center p-3 justify-content-between ' +
-                (buttons === idx && 'bg-warning bg-opacity-10')
-              }
-              onMouseEnter={() => showButtons(idx)}
-              onMouseLeave={() => setButtons(null)}
+              className="align-items-center p-3 justify-content-between "
             >
               <Stack direction="horizontal" gap={5}>
                 <div className="text-muted">{idx + 1}</div>
@@ -85,9 +75,7 @@ const Forms = () => {
                   }
                   variant="secondary"
                   size="sm"
-                  className={
-                    'me-3 px-5 ' + (buttons === idx ? 'visible' : 'invisible')
-                  }
+                  className="me-3 px-5 "
                 >
                   Assign
                 </Button>
@@ -96,28 +84,25 @@ const Forms = () => {
                   type="button"
                   variant="secondary"
                   size="sm"
-                  className={
-                    'me-3 px-5 ' + (buttons === idx ? 'visible' : 'invisible')
-                  }
+                  className="me-3 px-5 "
                   to={`edit?id=${form.id}`}
                 >
                   Edit
                 </Button>
+
+                <Button
+                  type="button"
+                  variant="danger"
+                  size="sm"
+                  data-show="delete"
+                  onClick={(e) =>
+                    showModal(e, { id: form.id, title: form.title })
+                  }
+                  className="me-3 "
+                >
+                  Delete
+                </Button>
               </Stack>
-              <Button
-                type="button"
-                variant="danger"
-                size="sm"
-                data-show="delete"
-                onClick={(e) =>
-                  showModal(e, { id: form.id, title: form.title })
-                }
-                className={
-                  'me-3 ' + (buttons === idx ? 'visible' : 'invisible')
-                }
-              >
-                Delete
-              </Button>
             </Stack>
             <hr className="m-0" />
           </Fragment>

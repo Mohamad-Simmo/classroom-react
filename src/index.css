@@ -74,12 +74,6 @@
   --bs-highlight-bg: #fff3cd;
 }
 
-html,
-body,
-#root {
-  height: 100%;
-}
-
 .offcanvas-size-sm {
   --bs-offcanvas-width: min(95vw, 250px) !important;
 }
@@ -106,13 +100,6 @@ body,
 .avatar-menu-item {
   --bs-dropdown-link-hover-bg: transparent;
   --bs-dropdown-link-active-bg: transparent;
-}
-.card-hover {
-  transition: 0.25s;
-}
-
-.card-hover:hover {
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
 .class-nav {
@@ -145,11 +132,23 @@ body,
   animation: collapse 1s linear infinite;
 }
 
-@keyframes collapse {
-  0% {
-    height: 100%;
-  }
-  100% {
-    height: 0;
-  }
+.cover {
+  height: 240px;
+  background-image: url('https://wallpaperaccess.com/full/846661.png');
+  background-position: center;
+  background-size: cover;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
+}
+
+.card-link {
+  color: inherit;
+  text-decoration: inherit;
+  transition: 0.25s;
+}
+
+.card-link:hover {
+  color: inherit;
+  text-decoration: inherit;
+  transform: scale(0.98);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }

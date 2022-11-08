@@ -17,6 +17,7 @@ import Archived from './pages/Archived';
 import NotFound from './pages/NotFound';
 import Forms from './pages/Forms';
 import EditForm from './pages/EditForm';
+import SolveForm from './pages/SolveForm';
 
 const App = () => {
   return (
@@ -44,8 +45,12 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/forms" element={<Forms />} />
         </Route>
-        <Route path="*" element={<NotFound />} />
         <Route path="/forms/edit" element={<EditForm />} />
+        <Route
+          path="/classes/:id/:form_type/:assign_id"
+          element={<SolveForm />}
+        />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

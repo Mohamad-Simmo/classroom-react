@@ -38,7 +38,7 @@ const ClassesContainer = () => {
 
   return (
     <Container
-      className="py-3"
+      className="py-4"
       fluid="lg"
       style={{
         height: 'calc(100% - 66px)',

@@ -7,8 +7,7 @@ const ClassCard = ({ id, instructor, title, description, code, people }) => {
     <Card
       as={Link}
       to={`/classes/${id}`}
-      style={{ color: 'inherit', textDecoration: 'inherit' }}
-      className="card-hover h-100"
+      className="card-hover card-link h-100"
     >
       <Card.Header>{instructor}</Card.Header>
       <Card.Body>
