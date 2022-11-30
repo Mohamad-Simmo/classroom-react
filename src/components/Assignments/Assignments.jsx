@@ -19,6 +19,7 @@ const Assignments = () => {
           <AssignedCard
             title={a.title}
             id={a.assigned_id}
+            form_id={a.form_id}
             end={a.end_date_time}
           />
         </Col>

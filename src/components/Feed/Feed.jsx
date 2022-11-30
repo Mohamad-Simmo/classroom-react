@@ -17,6 +17,7 @@ const Feed = () => {
   const { setActive, id } = useOutletContext();
   const [value, setValue] = useState('');
   const [posts, setPosts] = useState([]);
+  const [isError, setIsError] = useState(false);
   const accordionRef = useRef(null);
 
   useEffect(() => {
@@ -25,21 +26,24 @@ const Feed = () => {
     getPosts(user.token, id).then(({ data }) => setPosts(data));
   }, [setActive, user, id]);
 
-  const handleReset = (e) => {
-    e.preventDefault();
+  const handleReset = () => {
     setValue('');
+    setIsError(false);
     accordionRef.current.click();
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (value.trim().length === 0) {
+      setIsError(true);
+      return;
+    }
     createPost(user.token, {
       class_id: id,
       body: value,
     }).then(({ data }) => {
       setPosts((prev) => [data, ...prev]);
-      setValue('');
-      accordionRef.current.click();
+      handleReset();
     });
   };
 
@@ -47,7 +51,9 @@ const Feed = () => {
     <>
       <Accordion className="accordion-post">
         <Accordion.Item eventKey={1}>
-          <Accordion.Button ref={accordionRef}>New Post</Accordion.Button>
+          <Accordion.Button ref={accordionRef} onClick={handleReset}>
+            New Post
+          </Accordion.Button>
           <Accordion.Body>
             <Form onSubmit={handleSubmit} onReset={handleReset}>
               <MDEditor
@@ -58,6 +64,9 @@ const Feed = () => {
                 }}
                 className="mb-3"
               />
+              <p className="text-danger" hidden={!isError}>
+                Post cannot be empty
+              </p>
 
               <Stack
                 direction="horizontal"

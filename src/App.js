@@ -47,7 +47,7 @@ const App = () => {
         </Route>
         <Route path="/forms/edit" element={<EditForm />} />
         <Route
-          path="/classes/:id/:form_type/:assign_id"
+          path="/classes/:id/:form_type/:form_id/:assign_id"
           element={<SolveForm />}
         />
         <Route path="*" element={<NotFound />} />

@@ -54,7 +54,11 @@ const ClassPage = () => {
       <Row>
         <Col md={3}>
           <div className="sticky-top py-3">
-            <ClassNavigation active={active} classID={classData.id} />
+            <ClassNavigation
+              active={active}
+              classID={classData.id}
+              assigned={assigned}
+            />
           </div>
         </Col>
         <Col md={9} className="pt-3">

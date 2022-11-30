@@ -45,6 +45,7 @@ const People = () => {
                   placeholder="Comma-separated Emails"
                   value={value}
                   onChange={handleChange}
+                  required
                 />
               </Form.Group>
               <Stack

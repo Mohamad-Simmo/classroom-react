@@ -96,9 +96,7 @@ const EditForm = () => {
     }
 
     // Submit
-    createForm(user.token, { title: titleRef.current.value, questions }).then(
-      () => console.log({ title: titleRef.current.value, questions })
-    );
+    createForm(user.token, { title: titleRef.current.value, questions });
   };
 
   return (

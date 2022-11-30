@@ -55,14 +55,6 @@ const AssignFormModal = ({
       return;
     }
 
-    console.log({
-      form_id: formID,
-      class_id: parseInt(classID),
-      type,
-      start: new Date(start).toISOString().slice(0, 19).replace('T', ' '),
-      end: new Date(end).toISOString().slice(0, 19).replace('T', ' '),
-    });
-
     assignForm(user.token, {
       form_id: formID,
       class_id: parseInt(classID),

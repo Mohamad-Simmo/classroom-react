@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom';
 import Stack from 'react-bootstrap/Stack';
 import Badge from 'react-bootstrap/Badge';
 import { tabs } from '../../constants/tabs';
-import { useState, useEffect, useContext } from 'react';
-import { getAssignedCount } from '../../utils/formAPI';
-import AuthContext from '../../context/AuthContext';
+import { useState, useEffect } from 'react';
 
-const ClassNavigation = ({ active, classID }) => {
-  const { user } = useContext(AuthContext);
+const ClassNavigation = ({ active, assigned }) => {
   const [count, setCount] = useState({ tests: 0, assignments: 0 });
 
   useEffect(() => {
-    getAssignedCount(user.token, classID).then(({ data }) => setCount(data));
-  }, [user, classID]);
+    setCount({
+      tests: assigned.filter((a) => a.type === 'test').length,
+      assignments: assigned.filter((a) => a.type === 'assignment').length,
+    });
+  }, [assigned]);
 
   return (
     <Nav

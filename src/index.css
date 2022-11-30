@@ -152,3 +152,11 @@
   transform: scale(0.98);
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
+
+.chevron {
+  user-select: none;
+  animation: rotate 2s linear infinite;
+}
+
+.chevron:hover {
+}

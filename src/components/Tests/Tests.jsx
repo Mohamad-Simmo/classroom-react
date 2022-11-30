@@ -9,7 +9,7 @@ const Tests = () => {
   useEffect(() => {
     setActive('Tests');
     setTests(() => assigned.filter((a) => a.type === 'test'));
-  }, [assigned]);
+  }, [assigned, setActive]);
   return (
     <Row className="g-3">
       {tests.map((t) => (
@@ -17,6 +17,7 @@ const Tests = () => {
           <AssignedCard
             title={t.title}
             id={t.assigned_id}
+            form_id={t.form_id}
             end={t.end_date_time}
           />
         </Col>

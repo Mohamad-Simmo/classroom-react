@@ -49,7 +49,6 @@ const Question = ({ index, currentQuestion, questions, setQuestions }) => {
       >
         <Form.Label className="m-0">{index + 1}.</Form.Label>
         <Form.Control
-          className=""
           type="text"
           placeholder="Question"
           value={question}
