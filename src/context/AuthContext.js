@@ -7,21 +7,17 @@ const user = JSON.parse(localStorage.getItem('user'));
 
 const initialState = {
   user: user ? user : null,
-  role: null,
 };
 
 export const authReducer = (state, action) => {
   switch (action.type) {
     case 'LOGIN':
       localStorage.setItem('user', JSON.stringify(action.payload));
-      return { ...state, user: action.payload };
+      return { user: action.payload };
 
     case 'LOGOUT':
       localStorage.removeItem('user');
-      return { user: null, role: null };
-
-    case 'ROLE':
-      return { ...state, role: action.payload.toString() };
+      return { user: null };
 
     default:
       return state;

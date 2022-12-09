@@ -1,10 +1,13 @@
 import { Form, Card, Accordion, Row, Col } from 'react-bootstrap';
 import { uploadMaterial } from '../../utils/materialAPI';
-import useToken from '../../hooks/useToken';
 import { BsCloudUpload } from 'react-icons/bs';
+import AuthContext from '../../context/AuthContext';
+import { useContext } from 'react';
 
 const Section = ({ id, title, material, idx }) => {
-  const token = useToken();
+  const {
+    user: { token },
+  } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();

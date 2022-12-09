@@ -11,7 +11,9 @@ import CreateClassModal from '../components/Modals/CreateClassModal';
 import JoinClassModal from '../components/Modals/JoinClassModal';
 
 const Home = () => {
-  const { role } = useContext(AuthContext);
+  const {
+    user: { role },
+  } = useContext(AuthContext);
   const { classes: all, addClass, isLoading } = useOutletContext();
   const [classes, setClasses] = useState([]);
   const [modal, setModal] = useState('');

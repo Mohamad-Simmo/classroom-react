@@ -60,3 +60,7 @@ export const submitAssigned = async (token, formData) => {
     config(token)
   );
 };
+
+export const getGrades = async (token) => {
+  return await axios.get(`${base_url}/api/grades/get.php`, config(token));
+};

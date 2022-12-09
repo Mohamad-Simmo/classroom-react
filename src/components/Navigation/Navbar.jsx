@@ -14,7 +14,7 @@ import AvatarDropdown from '../UI/AvatarDropdown';
 import CloseButton from 'react-bootstrap/CloseButton';
 
 const Navbar = () => {
-  const { user, role, dispatch } = useContext(AuthContext);
+  const { user, dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
 
@@ -71,11 +71,14 @@ const Navbar = () => {
                   <Nav.Link as={Link} to="classes" onClick={toggleShow}>
                     Classes
                   </Nav.Link>
-                  {role === 'teacher' && (
+                  {user.role === 'teacher' && (
                     <Nav.Link as={Link} to="forms" onClick={toggleShow}>
                       Forms
                     </Nav.Link>
                   )}
+                  <Nav.Link as={Link} to="grades" onClick={toggleShow}>
+                    Grades
+                  </Nav.Link>
                   <Nav.Link
                     as={Link}
                     to="classes/archived"

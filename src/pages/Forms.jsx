@@ -42,72 +42,71 @@ const Forms = () => {
         data={modalData}
         classes={classes}
       />
-      <Container className="py-3">
-        <Stack direction="horizontal" className="border-bottom border-dark">
-          <h2>My Forms</h2>
 
-          <Button
-            variant="info"
-            className="rounded-5 ms-auto mb-2"
-            as={Link}
-            to="edit"
+      <Stack direction="horizontal" className="border-bottom border-dark">
+        <h2>My Forms</h2>
+
+        <Button
+          variant="info"
+          className="rounded-5 ms-auto mb-2"
+          as={Link}
+          to="edit"
+        >
+          Create Form
+        </Button>
+      </Stack>
+
+      {forms.map((form, idx) => (
+        <Fragment key={form.id}>
+          <Stack
+            direction="horizontal"
+            className="align-items-center p-3 justify-content-between "
           >
-            Create Form
-          </Button>
-        </Stack>
-
-        {forms.map((form, idx) => (
-          <Fragment key={form.id}>
-            <Stack
-              direction="horizontal"
-              className="align-items-center p-3 justify-content-between "
-            >
-              <Stack direction="horizontal" gap={5}>
-                <div className="text-muted">{idx + 1}</div>
-                <div>{form.title}</div>
-              </Stack>
-              <Stack direction="horizontal">
-                <Button
-                  type="button"
-                  data-show="assign"
-                  onClick={(e) =>
-                    showModal(e, { id: form.id, title: form.title })
-                  }
-                  variant="secondary"
-                  size="sm"
-                  className="me-3 px-5 "
-                >
-                  Assign
-                </Button>
-                <Button
-                  as={Link}
-                  type="button"
-                  variant="secondary"
-                  size="sm"
-                  className="me-3 px-5 "
-                  to={`edit?id=${form.id}`}
-                >
-                  Edit
-                </Button>
-
-                <Button
-                  type="button"
-                  variant="danger"
-                  size="sm"
-                  data-show="delete"
-                  onClick={(e) =>
-                    showModal(e, { id: form.id, title: form.title })
-                  }
-                  className="me-3 "
-                >
-                  Delete
-                </Button>
-              </Stack>
+            <Stack direction="horizontal" gap={5}>
+              <div className="text-muted">{idx + 1}</div>
+              <div>{form.title}</div>
             </Stack>
-            <hr className="m-0" />
-          </Fragment>
-        ))}
-      </Container>
+            <Stack direction="horizontal">
+              <Button
+                type="button"
+                data-show="assign"
+                onClick={(e) =>
+                  showModal(e, { id: form.id, title: form.title })
+                }
+                variant="secondary"
+                size="sm"
+                className="me-3 px-5 "
+              >
+                Assign
+              </Button>
+              <Button
+                as={Link}
+                type="button"
+                variant="secondary"
+                size="sm"
+                className="me-3 px-5 "
+                to={`edit?id=${form.id}`}
+              >
+                Edit
+              </Button>
+
+              <Button
+                type="button"
+                variant="danger"
+                size="sm"
+                data-show="delete"
+                onClick={(e) =>
+                  showModal(e, { id: form.id, title: form.title })
+                }
+                className="me-3 "
+              >
+                Delete
+              </Button>
+            </Stack>
+          </Stack>
+          <hr className="m-0" />
+        </Fragment>
+      ))}
     </>
   );
 };

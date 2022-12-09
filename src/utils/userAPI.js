@@ -19,6 +19,3 @@ export const register = async (userData) => {
   return await axios.post(base_url + route + '/register.php', userData);
 };
 
-export const getRole = async (token) => {
-  return await axios.get(base_url + route + '/role/get.php', config(token));
-};

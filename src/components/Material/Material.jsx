@@ -1,17 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useOutletContext, useParams } from 'react-router-dom';
 import { Button, Stack, Form, Accordion } from 'react-bootstrap';
 import { createSection, getSections } from '../../utils/materialAPI';
-import useToken from '../../hooks/useToken';
+import AuthContext from '../../context/AuthContext';
 import Section from './Section';
 
 const Material = () => {
-  const token = useToken();
+  const {
+    user: { token },
+  } = useContext(AuthContext);
   const { id: class_id } = useParams();
   const [newClicked, setNewClicked] = useState(false);
   const [inputTitle, setInputTitle] = useState('');
   const [sections, setSections] = useState([]);
   const { setActive } = useOutletContext();
+
   useEffect(() => {
     setActive('Material');
   }, [setActive]);

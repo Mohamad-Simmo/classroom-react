@@ -1,9 +1,25 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Navbar from '../Navigation/Navbar';
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
+import { Container } from 'react-bootstrap';
+import { getClasses } from '../../utils/classAPI';
+import { useState, useEffect, useContext } from 'react';
+import AuthContext from '../../context/AuthContext';
 
 const Index = () => {
+  const navigate = useNavigate();
+  const { user, dispatch } = useContext(AuthContext);
+  const [classes, setClasses] = useState([]);
+
+  useEffect(() => {
+    if (user) {
+      getClasses(user.token).then((response) => {
+        setClasses(response.data);
+      });
+    }
+  }, [user, navigate, dispatch]);
+
   return (
     <>
       <Navbar />
@@ -33,7 +49,15 @@ const Index = () => {
           <Toast.Body>Heads up, toasts will stack automatically</Toast.Body>
         </Toast>
       </ToastContainer> */}
-      <Outlet />
+      <Container
+        className="py-4"
+        fluid="lg"
+        style={{
+          height: 'calc(100% - 66px)',
+        }}
+      >
+        <Outlet context={{ classes }} />
+      </Container>
     </>
   );
 };

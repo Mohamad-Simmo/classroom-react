@@ -74,6 +74,8 @@
   --bs-highlight-bg: #fff3cd;
 }
 
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
 .offcanvas-size-sm {
   --bs-offcanvas-width: min(95vw, 250px) !important;
 }
@@ -156,7 +158,4 @@
 .chevron {
   user-select: none;
   animation: rotate 2s linear infinite;
-}
-
-.chevron:hover {
 }

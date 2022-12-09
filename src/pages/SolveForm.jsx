@@ -1,8 +1,9 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { Container, Form, Stack, Button } from 'react-bootstrap';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useContext } from 'react';
 import { solveAssigned, submitAssigned } from '../utils/formAPI';
-import useToken from '../hooks/useToken';
+import AuthContext from '../context/AuthContext';
+
 import useHttp from '../hooks/useHttp';
 
 const SolveForm = () => {
@@ -10,7 +11,9 @@ const SolveForm = () => {
   const [selected, setSelected] = useState([]);
   const { id, assign_id, form_id, form_type } = useParams();
   const [timeLeft, setTimeLeft] = useState(new Date().toLocaleString());
-  const token = useToken();
+  const {
+    user: { token },
+  } = useContext(AuthContext);
 
   const { data, isError, isLoading } = useHttp(
     useCallback(() => solveAssigned(token, assign_id), [token, assign_id])

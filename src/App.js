@@ -18,6 +18,7 @@ import NotFound from './pages/NotFound';
 import Forms from './pages/Forms';
 import EditForm from './pages/EditForm';
 import SolveForm from './pages/SolveForm';
+import Grades from './pages/Grades';
 
 const App = () => {
   return (
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forms" element={<Forms />} />
+          <Route path="/grades" element={<Grades />} />
         </Route>
         <Route path="/forms/edit" element={<EditForm />} />
         <Route
