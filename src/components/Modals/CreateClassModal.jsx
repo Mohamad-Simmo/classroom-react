@@ -30,7 +30,8 @@ const CreateClassModal = ({ show, handleClose, addClass }) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleCreate = () => {
+  const handleCreate = (e) => {
+    e.preventDefault();
     setIsLoading(true);
     createClass(user.token, formData)
       .then(({ data }) => {
@@ -53,14 +54,15 @@ const CreateClassModal = ({ show, handleClose, addClass }) => {
       <Modal.Header closeButton={!isLoading}>
         <Modal.Title>Create Class</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        <Form autoComplete="off">
+      <Form autoComplete="off" onSubmit={handleCreate}>
+        <Modal.Body>
           <Form.Group className="mb-3" controlId="Form.className">
             <Form.Label>Class Name</Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter class name"
               autoFocus
+              required
               name="name"
               value={name}
               onChange={handleChange}
@@ -77,19 +79,19 @@ const CreateClassModal = ({ show, handleClose, addClass }) => {
               onChange={handleChange}
             />
           </Form.Group>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="dark" onClick={handleClose} disabled={isLoading}>
-          Cancel
-        </Button>
-        <Button variant="info" onClick={handleCreate} disabled={isLoading}>
-          {isLoading && (
-            <Spinner animation="border" size="sm" className="me-1" />
-          )}
-          Create
-        </Button>
-      </Modal.Footer>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="dark" onClick={handleClose} disabled={isLoading}>
+            Cancel
+          </Button>
+          <Button type="submit" variant="info" disabled={isLoading}>
+            {isLoading && (
+              <Spinner animation="border" size="sm" className="me-1" />
+            )}
+            Create
+          </Button>
+        </Modal.Footer>
+      </Form>
     </Modal>
   );
 };

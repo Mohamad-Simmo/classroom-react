@@ -1,4 +1,3 @@
-
 import { Outlet } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -27,7 +26,7 @@ const ClassesContainer = () => {
   }, [user, navigate, dispatch]);
 
   const addClass = (newClass) => {
-    setClasses((prev) => [...prev, newClass]);
+    setClasses((prev) => [newClass, ...prev]);
   };
 
   return <Outlet context={{ classes, addClass, isLoading }} />;

@@ -9,7 +9,13 @@ const ClassCard = ({ id, instructor, title, description, code, people }) => {
       to={`/classes/${id}`}
       className="card-hover card-link h-100"
     >
-      <Card.Header>{instructor}</Card.Header>
+      <Card.Header
+        style={{
+          border: 'none',
+        }}
+      >
+        {instructor}
+      </Card.Header>
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <Card.Text>{description}</Card.Text>

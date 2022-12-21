@@ -17,14 +17,16 @@ const ClassNavigation = ({ active, assigned }) => {
 
   return (
     <Nav
-      className="class-nav flex-row flex-md-column flex-nowrap overflow-auto mb-3"
+      className="flex-row flex-md-column flex-nowrap overflow-auto mb-3"
       variant="pills"
     >
       {tabs.map((tab, idx) => (
         <Nav.Link
           key={idx}
           as={Link}
-          className="class-nav-link mb-1"
+          className={`mb-1 ${
+            active === tab.active ? 'text-light' : 'text-black'
+          }`}
           to={tab.link}
           active={active === tab.active}
         >

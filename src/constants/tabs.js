@@ -16,12 +16,7 @@ export const tabs = [
     active: 'Material',
     icon: <BsJournalBookmark />,
   },
-  {
-    name: 'Chat',
-    link: 'chat',
-    active: 'Chat',
-    icon: <BsChatDots />,
-  },
+
   {
     name: 'Assignments',
     link: 'assignments',
