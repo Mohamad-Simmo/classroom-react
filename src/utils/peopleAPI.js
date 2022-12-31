@@ -18,3 +18,11 @@ export const addPeople = async (token, peopleData) => {
     config(token)
   );
 };
+
+export const joinClass = async (token, code) => {
+  return await axios.post(
+    base_url + route + '/join.php',
+    { code },
+    config(token)
+  );
+};

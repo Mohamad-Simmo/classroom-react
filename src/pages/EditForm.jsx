@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useContext } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 
 import Button from 'react-bootstrap/Button';
@@ -8,7 +8,7 @@ import Question from '../components/Form/Question';
 import Stack from 'react-bootstrap/Stack';
 import Container from 'react-bootstrap/Container';
 
-import { createForm, getForm } from '../utils/formAPI';
+import { createForm, getForm, deleteForm } from '../utils/formAPI';
 
 import { AiOutlinePlus } from 'react-icons/ai';
 import { FiEdit2 } from 'react-icons/fi';
@@ -21,11 +21,13 @@ const question = {
 };
 
 const EditForm = () => {
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const [params] = useSearchParams();
   const [questions, setQuestions] = useState([question]);
   const [toggleAdd, setToggleAdd] = useState(false);
   const [totalGrade, setTotalGrade] = useState(0);
+  const [error, setError] = useState('');
   const formRef = useRef();
   const titleRef = useRef();
 
@@ -75,7 +77,7 @@ const EditForm = () => {
     });
   }, [questions]);
 
-  const addQuestion = (questionObj = question) => {
+  const addQuestion = () => {
     setQuestions((prev) => [...prev, question]);
     setToggleAdd((prev) => !prev);
   };
@@ -83,20 +85,37 @@ const EditForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validate
-    for (let i in questions) {
-      if (!questions[i].question.trim().length > 0) {
-        return;
-      }
-      for (let j in questions[i].choices) {
-        if (!questions[i].choices[j].trim().length > 0) {
-          return;
-        }
-      }
+    if (!titleRef.current.value.trim().length) {
+      titleRef.current.focus();
+      setError('Please add a title for your form');
+      setTimeout(() => setError(''), 5000);
+      return;
     }
 
-    // Submit
-    createForm(user.token, { title: titleRef.current.value, questions });
+    for (let q of questions) {
+      if (q.correctChoiceIndex === null) {
+        setError('Please select a correct choice for every question');
+        setTimeout(() => setError(''), 5000);
+        return;
+      }
+    }
+    if (totalGrade !== 100) {
+      setError('Invalid grade');
+      setTimeout(() => setError(''), 5000);
+      return;
+    }
+
+    // Submit edited form
+    if (params.get('id')) {
+      deleteForm(user.token, params.get('id'));
+    }
+
+    // create form
+    createForm(user.token, { title: titleRef.current.value, questions }).then(
+      () => {
+        navigate('/forms');
+      }
+    );
   };
 
   return (
@@ -107,6 +126,7 @@ const EditForm = () => {
         className="align-items-bottom border-bottom border-secondary w-sm-25"
       >
         <Form.Control
+          required
           ref={titleRef}
           plaintext
           placeholder="Form Title"
@@ -142,10 +162,12 @@ const EditForm = () => {
               Total Grade: {totalGrade} / 100
             </div>
           </Stack>
+
           <Button type="submit" variant="info">
             Save
           </Button>
         </Stack>
+        {error && <p className="m-0 text-danger">{error}</p>}
       </Form>
     </Container>
   );

@@ -4,7 +4,7 @@ import { BsCloudUpload } from 'react-icons/bs';
 import AuthContext from '../../context/AuthContext';
 import { useContext } from 'react';
 
-const Section = ({ id, title, material, idx }) => {
+const Section = ({ id, title, material, idx, updateSections }) => {
   const {
     user: { token },
   } = useContext(AuthContext);
@@ -19,7 +19,9 @@ const Section = ({ id, title, material, idx }) => {
       formData.append('file[]', e.target.files[i]);
     }
 
-    uploadMaterial(token, formData).then(({ data }) => console.log(data));
+    uploadMaterial(token, formData).then(() => {
+      updateSections();
+    });
   };
 
   return (

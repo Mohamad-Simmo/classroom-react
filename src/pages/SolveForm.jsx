@@ -10,7 +10,6 @@ const SolveForm = () => {
   const navigate = useNavigate();
   const [selected, setSelected] = useState([]);
   const { id, assign_id, form_id, form_type } = useParams();
-  const [timeLeft, setTimeLeft] = useState(new Date().toLocaleString());
   const {
     user: { token },
   } = useContext(AuthContext);
@@ -58,9 +57,6 @@ const SolveForm = () => {
     <Container className="py-4">
       <h1 className="text-center">{data.title}</h1>
       <hr />
-      <h6 className="position-fixed bottom-0 end-0 p-3 m-3 rounded text-bg-success">
-        {timeLeft}
-      </h6>
 
       <Form onSubmit={handleSubmit}>
         {data.questions.map((question, idx) => (

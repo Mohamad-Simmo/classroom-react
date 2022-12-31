@@ -42,15 +42,6 @@
 $dark: #2a324b;
 $secondary: #d6d6d6;
 
-$theme-colors: (
-  'primary': #0496ff,
-  'secondary': $secondary,
-  'success': #38b92d,
-  'info': #0496ff,
-  'light': #fafafa,
-  'dark': $dark,
-  'danger': #bb342f,
-);
 $input-btn-focus-box-shadow: none;
 $accordion-button-focus-box-shadow: none;
 
@@ -64,7 +55,6 @@ $accordion-button-focus-box-shadow: none;
   }
   .accordion-button.collapsed {
     background: $secondary;
-    color: black;
   }
 
   .accordion-button:not(.collapsed) {

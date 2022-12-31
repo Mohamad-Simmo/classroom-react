@@ -1,6 +1,6 @@
 import { MdOutlineFeedback, MdOutlineAssignmentTurnedIn } from 'react-icons/md';
 import { IoSettingsOutline } from 'react-icons/io5';
-import { BsJournalBookmark, BsChatDots, BsPeople } from 'react-icons/bs';
+import { BsJournalBookmark, BsPeople } from 'react-icons/bs';
 import { GoNote } from 'react-icons/go';
 
 export const tabs = [

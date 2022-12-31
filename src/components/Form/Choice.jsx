@@ -60,12 +60,12 @@ const Choice = ({ index, questions, setQuestions, questionIndex, choice }) => {
         placeholder="Choice"
         value={choice}
         onChange={handleChoiceChange}
+        required
       />
       <Button
         type="checkbox"
         variant={isCorrect ? 'success' : 'outline-secondary'}
         onClick={setCorrect}
-        className="border-0"
       >
         <AiOutlineCheck />
       </Button>

@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Stack from 'react-bootstrap/Stack';
-import { useReducer, useContext } from 'react';
+import { useReducer, useContext, useMemo } from 'react';
 import { assignForm } from '../../utils/formAPI';
 import AuthContext from '../../context/AuthContext';
 
@@ -13,12 +13,15 @@ const initialState = {
   classID: '',
   start: '',
   end: '',
+  error: '',
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case 'CHANGE_INPUT':
       return { ...state, [action.field]: action.payload };
+    case 'ERROR':
+      return { ...state, error: action.payload };
     case 'RESET':
       return initialState;
     default:
@@ -30,9 +33,13 @@ const AssignFormModal = ({
   show,
   setShow,
   data: { id: formID, title },
-  classes,
+  classes: allClasses,
 }) => {
   const { user } = useContext(AuthContext);
+
+  const classes = useMemo(() => {
+    return allClasses.filter((c) => !c.archived);
+  }, [allClasses]);
 
   const [state, dispatch] = useReducer(reducer, initialState);
   const { type, classID, start, end } = state;
@@ -50,8 +57,12 @@ const AssignFormModal = ({
     });
 
   const handleSubmit = (e) => {
+    if (!state.type || !state.classID) {
+      dispatch({ type: 'ERROR', payload: 'Invalid inputs!' });
+      return;
+    }
     if (start >= end) {
-      console.log('invalid!');
+      dispatch({ type: 'ERROR', payload: 'Invalid date!' });
       return;
     }
 
@@ -61,7 +72,7 @@ const AssignFormModal = ({
       type,
       start: new Date(start).toISOString().slice(0, 19).replace('T', ' '),
       end: new Date(end).toISOString().slice(0, 19).replace('T', ' '),
-    });
+    }).then(() => handleClose());
   };
 
   return (
@@ -164,6 +175,7 @@ const AssignFormModal = ({
         </Form.Group>
       </Modal.Body>
       <Modal.Footer className="border-0">
+        {state.error && <p className="text-danger">{state.error}</p>}
         <Button variant="dark" onClick={handleClose}>
           Close
         </Button>

@@ -1,4 +1,4 @@
-import { Container, Button, Stack } from 'react-bootstrap';
+import { Button, Stack } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { getForms } from '../utils/formAPI';
 import AuthContext from '../context/AuthContext';
@@ -58,33 +58,30 @@ const Forms = () => {
 
       {forms.map((form, idx) => (
         <Fragment key={form.id}>
-          <Stack
-            direction="horizontal"
-            className="align-items-center p-3 justify-content-between "
-          >
-            <Stack direction="horizontal" gap={5}>
+          <div className="align-items-center p-2 justify-content-between d-block d-sm-flex">
+            <Stack direction="horizontal" gap={3}>
               <div className="text-muted">{idx + 1}</div>
               <div>{form.title}</div>
             </Stack>
-            <Stack direction="horizontal">
+            <Stack className="justify-content-end" direction="horizontal">
               <Button
                 type="button"
                 data-show="assign"
                 onClick={(e) =>
                   showModal(e, { id: form.id, title: form.title })
                 }
-                variant="secondary"
+                variant="primary"
                 size="sm"
-                className="me-3 px-5 "
+                className="me-3 px-3"
               >
                 Assign
               </Button>
               <Button
                 as={Link}
                 type="button"
-                variant="secondary"
+                variant="primary"
                 size="sm"
-                className="me-3 px-5 "
+                className="me-3 px-3"
                 to={`edit?id=${form.id}`}
               >
                 Edit
@@ -92,7 +89,7 @@ const Forms = () => {
 
               <Button
                 type="button"
-                variant="danger"
+                variant="secondary"
                 size="sm"
                 data-show="delete"
                 onClick={(e) =>
@@ -103,7 +100,7 @@ const Forms = () => {
                 Delete
               </Button>
             </Stack>
-          </Stack>
+          </div>
           <hr className="m-0" />
         </Fragment>
       ))}

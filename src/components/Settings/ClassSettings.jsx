@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -7,14 +7,13 @@ import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 import Form from 'react-bootstrap/Form';
 import { updateClass } from '../../utils/classAPI';
-import { useContext } from 'react';
 import AuthContext from '../../context/AuthContext';
 import DeleteClassModal from '../Modals/DeleteClassModal';
 import ArchiveClassModal from '../Modals/ArchiveClassModal';
 
 const ClassSettings = () => {
   const { user } = useContext(AuthContext);
-  const { setActive, name, description, id, setClassData, isArchived } =
+  const { setActive, code, name, description, id, setClassData, isArchived } =
     useOutletContext();
 
   const [edit, setEdit] = useState(false);
@@ -52,10 +51,12 @@ const ClassSettings = () => {
     updateClass(user.token, {
       ...formData,
       id,
-    }).then(() => {
-      setEdit(false);
-      setClassData((prev) => ({ ...prev, ...formData }));
-    });
+    })
+      .then(() => {
+        setEdit(false);
+        setClassData((prev) => ({ ...prev, ...formData }));
+      })
+      .catch(() => handleCancel());
   };
 
   return (
@@ -79,7 +80,7 @@ const ClassSettings = () => {
 
         <Row className="mb-3">
           <Col lg={2} md={4} sm={6} className="text-break">
-            <h6>Name</h6>
+            <h6 className="m-0">Name</h6>
           </Col>
           <Col lg={10} md={8} sm={6}>
             {edit ? (
@@ -96,7 +97,7 @@ const ClassSettings = () => {
         </Row>
         <Row className="mb-3">
           <Col lg={2} md={4} sm={6} className="text-break">
-            <h6>Description</h6>
+            <h6 className="m-0">Description</h6>
           </Col>
           <Col lg={10} md={8} sm={6}>
             {edit ? (
@@ -111,6 +112,16 @@ const ClassSettings = () => {
             )}
           </Col>
         </Row>
+        {user.role === 'teacher' && (
+          <Row className="mb-3">
+            <Col lg={2} md={4} sm={6} className="text-break">
+              <h6 className="m-0">Code</h6>
+            </Col>
+            <Col lg={10} md={8} sm={6}>
+              {code}
+            </Col>
+          </Row>
+        )}
         {edit && (
           <Stack
             direction="horizontal"

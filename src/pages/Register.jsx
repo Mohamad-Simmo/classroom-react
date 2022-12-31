@@ -159,7 +159,7 @@ const Register = () => {
                 value={passwordConfirm}
                 onChange={handleInputChange}
                 required
-                autocomplete="new-password"
+                autoComplete="new-password"
               />
             </FloatingLabel>
 

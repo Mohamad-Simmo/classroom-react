@@ -3,24 +3,36 @@ import { Link } from 'react-router-dom';
 import Stack from 'react-bootstrap/Stack';
 import Badge from 'react-bootstrap/Badge';
 import { tabs } from '../../constants/tabs';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
-const ClassNavigation = ({ active, assigned }) => {
+const ClassNavigation = ({ active, assigned, isArchived }) => {
   const [count, setCount] = useState({ tests: 0, assignments: 0 });
 
   useEffect(() => {
-    setCount({
-      tests: assigned.filter((a) => a.type === 'test').length,
-      assignments: assigned.filter((a) => a.type === 'assignment').length,
-    });
-  }, [assigned]);
+    if (!isArchived) {
+      setCount({
+        tests: assigned.filter((a) => a.type === 'test').length,
+        assignments: assigned.filter((a) => a.type === 'assignment').length,
+      });
+    }
+  }, [assigned, isArchived]);
+
+  const filteredTabs = useMemo(() => {
+    if (isArchived) {
+      return tabs.filter(
+        (tab) => tab.name !== 'Assignments' && tab.name !== 'Tests'
+      );
+    } else {
+      return tabs;
+    }
+  }, [isArchived]);
 
   return (
     <Nav
       className="flex-row flex-md-column flex-nowrap overflow-auto mb-3"
       variant="pills"
     >
-      {tabs.map((tab, idx) => (
+      {filteredTabs.map((tab, idx) => (
         <Nav.Link
           key={idx}
           as={Link}

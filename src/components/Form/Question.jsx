@@ -10,7 +10,8 @@ const Question = ({ index, currentQuestion, questions, setQuestions }) => {
   const removeQuestion = () => {
     const questionsTemp = [...questions];
     questionsTemp.splice(index, 1);
-    setQuestions(questionsTemp);
+    if (!questionsTemp.length) setQuestions([]);
+    else setQuestions(questionsTemp);
   };
 
   const addChoice = () => {
@@ -53,6 +54,7 @@ const Question = ({ index, currentQuestion, questions, setQuestions }) => {
           placeholder="Question"
           value={question}
           onChange={handleQuestionChange}
+          required
         />
         <Button
           variant="outline-danger"

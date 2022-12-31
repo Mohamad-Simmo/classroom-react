@@ -14,7 +14,7 @@ import FeedPost from './FeedPost';
 
 const Feed = () => {
   const { user } = useContext(AuthContext);
-  const { setActive, id } = useOutletContext();
+  const { setActive, id, isArchived } = useOutletContext();
   const [value, setValue] = useState('');
   const [posts, setPosts] = useState([]);
   const [isError, setIsError] = useState(false);
@@ -49,46 +49,51 @@ const Feed = () => {
 
   return (
     <>
-      <Accordion className="accordion-post">
-        <Accordion.Item eventKey={1}>
-          <Accordion.Button ref={accordionRef} onClick={handleReset}>
-            New Post
-          </Accordion.Button>
-          <Accordion.Body>
-            <Form onSubmit={handleSubmit} onReset={handleReset}>
-              <MDEditor
-                value={value}
-                onChange={setValue}
-                previewOptions={{
-                  rehypePlugins: [[rehypeSanitize]],
-                }}
-                className="mb-3"
-              />
-              <p className="text-danger" hidden={!isError}>
-                Post cannot be empty
-              </p>
+      {!isArchived && (
+        <Accordion className="accordion-post">
+          <Accordion.Item eventKey={1}>
+            <Accordion.Button ref={accordionRef} onClick={handleReset}>
+              New Post
+            </Accordion.Button>
+            <Accordion.Body className="bg-light">
+              <Form onSubmit={handleSubmit} onReset={handleReset}>
+                <MDEditor
+                  value={value}
+                  onChange={setValue}
+                  previewOptions={{
+                    rehypePlugins: [[rehypeSanitize]],
+                  }}
+                />
+                <p className="text-danger" hidden={!isError}>
+                  Post cannot be empty
+                </p>
 
-              <Stack
-                direction="horizontal"
-                gap={2}
-                className="justify-content-end"
-              >
-                <Button type="reset" variant="dark">
-                  Cancel
-                </Button>
-                <Button type="submit" variant="info">
-                  Submit
-                </Button>
-              </Stack>
-            </Form>
-          </Accordion.Body>
-        </Accordion.Item>
-      </Accordion>
+                <Stack
+                  direction="horizontal"
+                  gap={2}
+                  className="justify-content-end mt-3"
+                >
+                  <Button type="reset" variant="dark">
+                    Cancel
+                  </Button>
+                  <Button type="submit" variant="info">
+                    Submit
+                  </Button>
+                </Stack>
+              </Form>
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
+      )}
 
       {posts.length === 0 ? (
-        <h6 className="text-muted text-center mt-5 pt-5">
-          No posts yet. Create a new one!
-        </h6>
+        isArchived ? (
+          <h6 className="text-muted text-center mt-5 pt-5">No posts.</h6>
+        ) : (
+          <h6 className="text-muted text-center mt-5 pt-5">
+            No posts yet. Create a new one!
+          </h6>
+        )
       ) : (
         posts.map((post) => (
           <FeedPost

@@ -31,6 +31,7 @@ const ClassPage = () => {
     description,
     num_people,
     archived: isArchived,
+    code,
   } = classData;
 
   useEffect(() => {
@@ -43,7 +44,7 @@ const ClassPage = () => {
       });
 
     getAssigned(user.token, id).then(({ data }) => setAssigned(data));
-  }, [id, user]);
+  }, [id, user, navigate]);
 
   return (
     <>
@@ -58,6 +59,7 @@ const ClassPage = () => {
               active={active}
               classID={classData.id}
               assigned={assigned}
+              isArchived={isArchived}
             />
           </div>
         </Col>
@@ -73,6 +75,7 @@ const ClassPage = () => {
               isArchived,
               setClassData,
               assigned,
+              code,
             }}
           />
         </Col>
