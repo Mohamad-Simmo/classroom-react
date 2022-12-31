@@ -4,9 +4,13 @@ import Stack from 'react-bootstrap/Stack';
 import Badge from 'react-bootstrap/Badge';
 import { tabs } from '../../constants/tabs';
 import { useState, useEffect, useMemo } from 'react';
+import { useContext } from 'react';
+import AuthContext from '../../context/AuthContext';
 
 const ClassNavigation = ({ active, assigned, isArchived }) => {
   const [count, setCount] = useState({ tests: 0, assignments: 0 });
+
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     if (!isArchived) {
@@ -18,14 +22,21 @@ const ClassNavigation = ({ active, assigned, isArchived }) => {
   }, [assigned, isArchived]);
 
   const filteredTabs = useMemo(() => {
-    if (isArchived) {
+    if (isArchived && user.role === 'teacher') {
       return tabs.filter(
         (tab) => tab.name !== 'Assignments' && tab.name !== 'Tests'
       );
-    } else {
-      return tabs;
-    }
-  }, [isArchived]);
+    } else if (isArchived && user.role === 'student') {
+      return tabs.filter(
+        (tab) =>
+          tab.name !== 'Assignments' &&
+          tab.name !== 'Tests' &&
+          tab.name !== 'Settings'
+      );
+    } else if (!isArchived && user.role === 'student') {
+      return tabs.filter((tab) => tab.name !== 'Settings');
+    } else return tabs;
+  }, [isArchived, user.role]);
 
   return (
     <Nav

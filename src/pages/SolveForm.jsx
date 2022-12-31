@@ -61,7 +61,7 @@ const SolveForm = () => {
       <Form onSubmit={handleSubmit}>
         {data.questions.map((question, idx) => (
           <Form.Group
-            className="border rounded-3 p-3 mb-4 bg-light"
+            className="border rounded-3 p-3 mb-4 bg-white"
             key={question.id}
           >
             <Stack

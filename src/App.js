@@ -41,12 +41,13 @@ const App = () => {
                   element={<Assignments />}
                 />
                 <Route path="/classes/:id/tests" element={<Tests />} />
-                <Route path="/classes/:id/chat" element={<Chat />} />
                 <Route path="/classes/:id/people" element={<People />} />
-                <Route
-                  path="/classes/:id/settings"
-                  element={<ClassSettings />}
-                />
+                {user.role === 'teacher' && (
+                  <Route
+                    path="/classes/:id/settings"
+                    element={<ClassSettings />}
+                  />
+                )}
               </Route>
             </Route>
           )}

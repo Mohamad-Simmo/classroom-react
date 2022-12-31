@@ -7,7 +7,7 @@ import Section from './Section';
 
 const Material = () => {
   const {
-    user: { token },
+    user: { token, role },
   } = useContext(AuthContext);
   const { id: class_id } = useParams();
   const [newClicked, setNewClicked] = useState(false);
@@ -50,6 +50,7 @@ const Material = () => {
   return (
     <>
       {!isArchived &&
+        role === 'teacher' &&
         (newClicked ? (
           <Form onSubmit={handleSubmit} onReset={handleReset} className="mb-3">
             <Form.Group as={Stack} direction="horizontal" gap={2}>

@@ -41,7 +41,7 @@ const People = () => {
   };
   return (
     <>
-      {!isArchived && (
+      {!isArchived && user.role === 'teacher' && (
         <Accordion className="accordion-post mb-3">
           <Accordion.Item eventKey={1}>
             <Accordion.Button ref={accordRef}>Add People</Accordion.Button>

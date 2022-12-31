@@ -13,13 +13,9 @@ const Grades = () => {
   const [filterType, setFilterType] = useState('all');
   const [grades, setGrades] = useState([]);
 
-  console.log(role);
-
   useEffect(() => {
     getGrades(token).then(({ data }) => setGrades(data));
   }, [token]);
-
-  console.log(grades);
 
   const filteredGrades = useMemo(() => {
     if (filterClass !== 'all' && filterType !== 'all') {
@@ -39,22 +35,23 @@ const Grades = () => {
 
   return (
     <>
-      <Stack direction="horizontal" className="justify-content-between mb-3">
+      <div className="d-md-flex justify-content-between mb-3">
         <h2>My Grades</h2>
-        <Stack direction="horizontal" className="gap-5">
+        <div className="d-sm-flex gap-5">
           <Form.Group
-            className="d-flex align-items-center gap-2"
+            className="row align-items-center gap-2 mb-3 mb-sm-0"
             controlId="filterByClass"
           >
-            <Form.Label className="m-0">Class</Form.Label>
+            <Form.Label className="m-0 col-3 col-sm-auto">Class</Form.Label>
             <Form.Select
+              className="col-8 col-sm-auto"
               style={{ width: '200px' }}
               value={filterClass}
               onChange={(e) => setFilterClass(e.target.value)}
             >
               <option value="all">All</option>
-              {classes.map((_class) => (
-                <option key={_class.id} value={_class.id}>
+              {classes.map((_class, idx) => (
+                <option key={idx} value={_class.id}>
                   {_class.name}
                 </option>
               ))}
@@ -62,24 +59,25 @@ const Grades = () => {
           </Form.Group>
 
           <Form.Group
-            className="d-flex align-items-center gap-2"
+            className="row align-items-center gap-2"
             controlId="filterByType"
           >
-            <Form.Label className="m-0">Type</Form.Label>
+            <Form.Label className="m-0 col-3 col-sm-auto">Type</Form.Label>
             <Form.Select
               style={{ width: '200px' }}
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
+              className="col-8 col-sm-auto"
             >
               <option value="all">All</option>
               <option value="assignment">assignments</option>
               <option value="test">tests</option>
             </Form.Select>
           </Form.Group>
-        </Stack>
-      </Stack>
+        </div>
+      </div>
 
-      <Table bordered hover>
+      <Table bordered hover responsive>
         <thead>
           <tr>
             <th>#</th>
@@ -97,7 +95,7 @@ const Grades = () => {
               <td>{idx + 1}</td>
               <td>{grade.name}</td>
               <td>{grade.title}</td>
-              <td>{grade.full_name}</td>
+              {role === 'teacher' && <td>{grade.full_name}</td>}
               <td>
                 {grade.type.charAt(0).toUpperCase() + grade.type.slice(1)}
               </td>

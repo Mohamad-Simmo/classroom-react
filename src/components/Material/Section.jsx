@@ -3,11 +3,14 @@ import { uploadMaterial } from '../../utils/materialAPI';
 import { BsCloudUpload } from 'react-icons/bs';
 import AuthContext from '../../context/AuthContext';
 import { useContext } from 'react';
+import { useOutletContext } from 'react-router-dom';
 
 const Section = ({ id, title, material, idx, updateSections }) => {
   const {
-    user: { token },
+    user: { token, role },
   } = useContext(AuthContext);
+
+  const { isArchived } = useOutletContext();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,19 +31,22 @@ const Section = ({ id, title, material, idx, updateSections }) => {
     <Accordion.Item eventKey={idx}>
       <Accordion.Header>{title}</Accordion.Header>
       <Accordion.Body>
-        <Form>
-          <Form.Label className="btn btn-secondary m-0">
-            {<BsCloudUpload />} Upload Material
-            <Form.Control
-              onChange={handleSubmit}
-              type="file"
-              placeholder="Upload Material (PDF Format)"
-              multiple
-              hidden
-            />
-          </Form.Label>
-        </Form>
+        {!isArchived && role === 'teacher' && (
+          <Form>
+            <Form.Label className="btn btn-secondary m-0">
+              {<BsCloudUpload />} Upload Material
+              <Form.Control
+                onChange={handleSubmit}
+                type="file"
+                placeholder="Upload Material"
+                multiple
+                hidden
+              />
+            </Form.Label>
+          </Form>
+        )}
         <Row className="g-3 my-3">
+          {!material.length && <p className="text-muted">No Files Yet.</p>}
           {material.map((m, i) => (
             <Col xs={6} lg={4} key={i}>
               <a href={m.url} target="_blank" rel="noopener noreferrer">
