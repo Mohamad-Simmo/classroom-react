@@ -10,7 +10,6 @@ import Feed from './components/Feed/Feed';
 import Material from './components/Material/Material';
 import Tests from './components/Tests/Tests';
 import Assignments from './components/Assignments/Assignments';
-import Chat from './components/Chat/Chat';
 import People from './components/People/People';
 import ClassSettings from './components/Settings/ClassSettings';
 import Archived from './pages/Archived';

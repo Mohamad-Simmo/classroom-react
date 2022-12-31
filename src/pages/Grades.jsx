@@ -1,5 +1,5 @@
 import { useOutletContext } from 'react-router-dom';
-import { Form, Stack, Table } from 'react-bootstrap';
+import { Form, Table } from 'react-bootstrap';
 import { useEffect, useMemo, useState, useContext } from 'react';
 import { getGrades } from '../utils/formAPI';
 import AuthContext from '../context/AuthContext';

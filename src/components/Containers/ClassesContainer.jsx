@@ -5,7 +5,7 @@ import { getClasses } from '../../utils/classAPI';
 import AuthContext from '../../context/AuthContext';
 
 const ClassesContainer = () => {
-  const { user, dispatch } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [classes, setClasses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
