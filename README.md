@@ -5,27 +5,26 @@ setting.
 
 ## Table of Contents
 
-- [Classroom](#classroom)
-  - [Table of Contents](#table-of-contents)
-  - [Overview](#overview)
-  - [Technologies](#technologies)
-  - [Features](#features)
-    - [For teachers](#for-teachers)
-    - [For students](#for-students)
-  - [Screenshots](#screenshots)
-  - [Database schema](#database-schema)
-    - [users](#users)
-    - [classes](#classes)
-    - [users_classes](#users_classes)
-    - [posts](#posts)
-    - [sections](#sections)
-    - [material](#material)
-    - [forms](#forms)
-    - [questions](#questions)
-    - [choices](#choices)
-    - [assigned_forms](#assigned_forms)
-    - [form_submissions](#form_submissions)
-  - [History](#history)
+
+- [Overview](#overview)
+- [Technologies](#technologies)
+- [Features](#features)
+  - [For teachers](#for-teachers)
+  - [For students](#for-students)
+- [Screenshots](#screenshots)
+- [Database schema](#database-schema)
+  - [users](#users)
+  - [classes](#classes)
+  - [users_classes](#users_classes)
+  - [posts](#posts)
+  - [sections](#sections)
+  - [material](#material)
+  - [forms](#forms)
+  - [questions](#questions)
+  - [choices](#choices)
+  - [assigned_forms](#assigned_forms)
+  - [form_submissions](#form_submissions)
+- [History](#history)
 
 ## Overview
 
@@ -76,29 +75,29 @@ Classroom is a web application that simplifies the creation and management of vi
 
 ## Screenshots
 
-![Authentication](screenshots\auth.png)
+![Authentication](screenshots/auth.png)
 
-![Homepage](screenshots\home.png)
+![Homepage](screenshots/home.png)
 
-![Class feed](screenshots\feed.png)
+![Class feed](screenshots/feed.png)
 
-![Study material](screenshots\material.png)
+![Study material](screenshots/material.png)
 
-![Settings](screenshots\settings.png)
+![Settings](screenshots/settings.png)
 
-![Create form](screenshots\create_form.png)
+![Create form](screenshots/create_form.png)
 
-![Assign form](screenshots\assign_form.png)
+![Assign form](screenshots/assign_form.png)
 
-![Class assignments](screenshots\assigned.png)
+![Class assignments](screenshots/assigned.png)
 
-![Solve form](screenshots\solve_form.png)
+![Solve form](screenshots/solve_form.png)
 
-![Grades](screenshots\grades.png)
+![Grades](screenshots/grades.png)
 
 ## Database schema
 
-![Database schema diagram](screenshots\dbschema.jpeg)
+![Database schema diagram](screenshots/dbschema.jpeg)
 
 The database for this project consists of the following tables:
 
