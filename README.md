@@ -186,6 +186,6 @@ The database for this project consists of the following tables:
 
 ## History
 
-Classroom was originally a single page application built with vanilla JavaScript and PHP, using Bootstrap for the user interface.
+Classroom was originally a [single page application built with vanilla JavaScript](https://github.com/mohammadsemmo/classroom-js) and PHP, using Bootstrap for the user interface.
 
 The app was refactored and re-designed using ReactJS and React Bootstrap to improve the user experience and performance. The backend was also updated to use JSON Web Token for authentication and authorization and include more features.
