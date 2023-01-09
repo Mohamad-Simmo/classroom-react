@@ -1,70 +1,192 @@
-# Getting Started with Create React App
+# Classroom
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A web application that allows teachers and students to interact and collaborate in a virtual classroom
+setting.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Classroom](#classroom)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Technologies](#technologies)
+  - [Features](#features)
+    - [For teachers](#for-teachers)
+    - [For students](#for-students)
+  - [Screenshots](#screenshots)
+  - [Database schema](#database-schema)
+    - [users](#users)
+    - [classes](#classes)
+    - [users_classes](#users_classes)
+    - [posts](#posts)
+    - [sections](#sections)
+    - [material](#material)
+    - [forms](#forms)
+    - [questions](#questions)
+    - [choices](#choices)
+    - [assigned_forms](#assigned_forms)
+    - [form_submissions](#form_submissions)
+  - [History](#history)
 
-### `npm start`
+## Overview
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Classroom is a web application that simplifies the creation and management of virtual classrooms for teachers, and provides a central platform for students to access class materials, complete assignments, and participate in discussions. Teachers can create and manage their classes, create forms for assignments or tests, and upload study material. Students can view all the class material and complete their assignments in one place.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technologies
 
-### `npm test`
+- ReactJS
+- PHP
+- MySQL
+- React Bootstrap
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Features
 
-### `npm run build`
+### For teachers
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Create and manage classes:** Teachers can create and manage their own virtual classrooms with Classroom. They can add a class name and description, and choose the subjects or topics they want to cover. They can also edit the class name or description at any time.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Archive classes:** Teachers can mark their classes as "read-only" or "archived" when they are no longer active. This means that students will no longer be able to submit assignments or participate in discussions, but they can still view the class material.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Create posts:** Teachers can create posts in their classes to communicate with their students or share updates. Posts are written in markdown to include text, images, or links to other resources.
 
-### `npm run eject`
+- **Upload study material:** Teachers can upload study material, such as slides, notes, or videos, to their classes for their students to access.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Add people to the class:** Teachers can add students to their classes or send them a unique code. They can also add other teachers or assistants.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Create forms:** Teachers can create forms for assignments or tests in Classroom. Forms include questions, choices and the grade of each question.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **Edit forms:** Teachers can edit their forms at any time, including the title, questions, choices.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **Assign forms as tests or assignments:** Teachers can assign their forms as tests or assignments to their students in a certain class, and set a due date if necessary.
 
-## Learn More
+- **Delete forms:** Teachers can delete forms that they no longer need.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **View grades:** Teachers can view the grades of their students for each assignment or test.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### For students
 
-### Code Splitting
+- **Join classes using a code:** Students can join a class by using a unique code provided by the teacher.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **Create and view posts:** Students can create posts in their classes to ask questions or share their thoughts with their classmates and teachers. They can also view posts created by others in the class.
 
-### Analyzing the Bundle Size
+- **View study material:** Students can access and download all the study material provided by their teachers in one place, including slides, notes, and videos.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **Solve assignments and tests:** Students can complete their assignments and tests in Classroom by filling out forms created by their teachers. They can submit their work before the due date and receive their grades.
 
-### Making a Progressive Web App
+- **View grades:** Students can view their grades for each assignment or test.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Screenshots
 
-### Advanced Configuration
+![Authentication](screenshots\auth.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+![Homepage](screenshots\home.png)
 
-### Deployment
+![Class feed](screenshots\feed.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+![Study material](screenshots\material.png)
 
-### `npm run build` fails to minify
+![Settings](screenshots\settings.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Create form](screenshots\create_form.png)
+
+![Assign form](screenshots\assign_form.png)
+
+![Class assignments](screenshots\assigned.png)
+
+![Solve form](screenshots\solve_form.png)
+
+![Grades](screenshots\grades.png)
+
+## Database schema
+
+![Database schema diagram](screenshots\dbschema.jpeg)
+
+The database for this project consists of the following tables:
+
+### users
+
+- id: int (primary key)
+- role: enum ('admin', 'teacher', 'student')
+- fname: varchar(20)
+- lname: varchar(20)
+- email: text
+- password: text
+
+### classes
+
+- id: int (primary key)
+- user_id: int (foreign key references users)
+- name: varchar(20)
+- description: text
+- code: char(13)
+- archived: boolean
+
+### users_classes
+
+- user_id: int (foreign key references users)
+- class_id: int (foreign key references classes)
+
+### posts
+
+- id: int (primary key)
+- user_id: int (foreign key references users)
+- class_id: int (foreign key references classes)
+- body: text
+- timestamp: timestamp
+
+### sections
+
+- id: int (primary key)
+- class_id: int (foreign key references classes)
+- title: text
+
+### material
+
+- id: int (primary key)
+- section_id: int (foreign key references sections)
+- file_name: text
+- url: text
+- type: text
+- size: bigint
+
+### forms
+
+- id: int (primary key)
+- user_id: int (foreign key references users)
+- title: text
+
+### questions
+
+- id: int (primary key)
+- form_id: int (foreign key references forms)
+- question: text
+- correct_choice_id: int (foreign key references choices)
+- grade: int
+
+### choices
+
+- id: int (primary key)
+- question_id: int (foreign key references questions)
+- choice: text
+
+### assigned_forms
+
+- id: int (primary key)
+- form_id: int (foreign key references forms)
+- class_id: int (foreign key references classes)
+- type: enum('test', 'assignment')
+- start_date_time: datetime
+- end_date_time: datetime
+
+### form_submissions
+
+- id: int (primary key)
+- user_id: int (foreign key references users)
+- assign_id: int (foreign key references assigned_forms)
+- date_time: timestamp
+- grade: int
+
+## History
+
+Classroom was originally a single page application built with vanilla JavaScript and PHP, using Bootstrap for the user interface.
+
+The app was refactored and re-designed using ReactJS and React Bootstrap to improve the user experience and performance. The backend was also updated to use JSON Web Token for authentication and authorization and include more features.

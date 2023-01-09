@@ -1,6 +1,7 @@
 import MDEditor from '@uiw/react-md-editor';
 import Stack from 'react-bootstrap/Stack';
 import Avatar from '../UI/Avatar';
+import { formatDate } from '../../utils/helpers';
 
 const FeedPost = ({ source, name, time }) => {
   return (
@@ -17,9 +18,9 @@ const FeedPost = ({ source, name, time }) => {
           <Avatar />
           <div className="fs-6 fw-semibold">{name}</div>
         </Stack>
-        <div className="text-muted">{time}</div>
+        <div className="text-muted">{formatDate(new Date(time))}</div>
       </Stack>
-      <MDEditor.Markdown source={source} />
+      <MDEditor.Markdown className="bg-light" source={source} />
     </div>
   );
 };
