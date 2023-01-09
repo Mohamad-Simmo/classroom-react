@@ -33,7 +33,7 @@ Classroom is a web application that simplifies the creation and management of vi
 ## Technologies
 
 - ReactJS
-- PHP
+- PHP (backend repository: [classroom-server](https://github.com/mohammadsemmo/classroom-server))
 - MySQL
 - React Bootstrap
 
